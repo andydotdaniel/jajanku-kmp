@@ -18,16 +18,16 @@ import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun TextCard(title: String, body: String) {
+fun TextCard(title: String, body: String, modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         color = AppColor.BackgroundGray,
     ) {
         Column(Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
             Text(title, fontWeight = FontWeight.Bold, color = AppColor.White, fontSize = 28.sp)
-            Text(body, fontWeight = FontWeight.Normal, color = AppColor.LightGray, fontSize = 12.sp, modifier = Modifier.padding(top = 4.dp))
+            Text(body, fontWeight = FontWeight.Normal, color = AppColor.LightGray, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp))
         }
     }
 }

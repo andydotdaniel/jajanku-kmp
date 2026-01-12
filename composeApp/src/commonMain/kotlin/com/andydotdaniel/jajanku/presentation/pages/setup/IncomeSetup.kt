@@ -25,7 +25,7 @@ import jajanku.composeapp.generated.resources.chevron_right
 import jajanku.composeapp.generated.resources.icon_chevron_right
 
 @Composable
-fun SetupIncome() {
+fun IncomeSetup() {
     Column(Modifier.padding(horizontal = 24.dp)) {
         Row (
             modifier = Modifier.fillMaxWidth(),
@@ -59,13 +59,13 @@ fun SetupIncome() {
 
 @Preview(showBackground = true)
 @Composable
-fun SetupIncomePreview() {
+fun IncomeSetupPreview() {
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            SetupIncome()
+            IncomeSetup()
         }
     }
 }
