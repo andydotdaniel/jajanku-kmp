@@ -38,7 +38,7 @@ fun BudgetPlanSetup() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("Select Budget - 2/3", color = AppColor.White, fontSize = 14.sp)
+            Text("Select Budget - 2/3", color = AppColor.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
         }
         Column(Modifier.padding(top = 68.dp)) {
             Text(
