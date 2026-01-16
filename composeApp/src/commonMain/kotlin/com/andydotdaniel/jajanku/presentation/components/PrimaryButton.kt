@@ -46,6 +46,7 @@ fun PrimaryButton(
     val contentPadding: PaddingValues = if (icon != null) PaddingValues(start = 24.dp, top = 12.dp, bottom = 12.dp, end = 14.dp) else PaddingValues(vertical = 12.dp, horizontal = 24.dp)
 
     Button(
+        modifier = modifier,
         contentPadding = contentPadding,
         onClick = onClick,
         shape = CircleShape,

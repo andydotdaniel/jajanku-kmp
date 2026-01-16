@@ -101,7 +101,7 @@ fun SegmentedPillControlPreview() {
         ) {
             Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.Center) {
                 val options = listOf("Monthly", "Weekly", "Daily")
-                SegmentedPillControl(options = options, selectedIndex = 0, {})
+                SegmentedPillControl(options = options, selectedIndex = 0) {}
             }
         }
     }

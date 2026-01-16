@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -18,6 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.andydotdaniel.jajanku.presentation.components.GaugeData
+import com.andydotdaniel.jajanku.presentation.components.GroupedGauge
+import com.andydotdaniel.jajanku.presentation.components.PrimaryButton
+import com.andydotdaniel.jajanku.presentation.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -42,6 +47,26 @@ fun ReviewBudget() {
                 Text("+ 500,000", color = AppColor.PrimaryActive, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
             }
         }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth().padding(top = 56.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            val options = listOf("Monthly", "Weekly", "Daily")
+            SegmentedPillControl(options, 0) {}
+
+            val gaugeData = listOf<GaugeData>(
+                GaugeData("Needs", "440,000", 0.4f),
+                GaugeData("Wants", "1,440,000", 0.6f),
+            )
+            GroupedGauge(gaugeData)
+        }
+
+        PrimaryButton(
+            modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
+            text = "Save Budget",
+            onClick = {}
+        )
     }
 }
 

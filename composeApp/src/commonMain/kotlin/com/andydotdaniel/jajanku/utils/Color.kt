@@ -10,6 +10,8 @@ object AppColor {
     val PlaceholderGray: Color = Color(color = 0xFF707070)
 
     val BackgroundGray: Color = Color(color = 0xFF262925)
+    val MutedGray: Color = Color(color = 0xFF494949)
+
 
     val PrimaryActive: Color = Color(color = 0xFF8FE458)
 }
