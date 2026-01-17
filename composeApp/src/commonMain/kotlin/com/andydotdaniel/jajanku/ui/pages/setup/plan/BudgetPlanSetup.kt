@@ -1,18 +1,16 @@
-package com.andydotdaniel.jajanku.ui.pages.setup
+package com.andydotdaniel.jajanku.ui.pages.setup.plan
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,12 +21,14 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextCard
+import com.andydotdaniel.jajanku.ui.pages.setup.ReviewBudget
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
 import jajanku.composeapp.generated.resources.chevron_right
 import jajanku.composeapp.generated.resources.icon_chevron_right
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 data class BudgetPlan(val name: String, val description: String)
 
@@ -37,6 +37,17 @@ class BudgetPlanSetup(): Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val viewModel = koinViewModel<BudgetPlanSetupViewModel>()
+
+        LaunchedEffect(key1 = Unit) {
+            viewModel.uiEvents.collect { event ->
+                when (event) {
+                    is BudgetPlanSetupEvent.NavigateToReviewBudget -> {
+                        navigator.push(ReviewBudget())
+                    }
+                }
+            }
+        }
 
         val budgetPlans = listOf<BudgetPlan>(
             BudgetPlan("50 / 30 / 20", "The most popular budgeting formula"),
@@ -85,7 +96,7 @@ class BudgetPlanSetup(): Screen {
             Row(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalArrangement = Arrangement.End) {
                 PrimaryButton(
                     modifier = Modifier.padding(top = 24.dp),
-                    onClick = { navigator.push(ReviewBudget()) },
+                    onClick = { viewModel.submit() },
                     text = "Continue",
                     icon = ButtonIcon(
                         icon = Res.drawable.chevron_right,

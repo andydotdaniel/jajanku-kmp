@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,7 +21,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
-import com.andydotdaniel.jajanku.ui.pages.setup.BudgetPlanSetup
+import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
@@ -34,8 +35,16 @@ class IncomeSetup: Screen {
     @Composable
     override fun Content() {
         val viewModel = koinInject<IncomeSetupViewModel>()
-
         val navigator = LocalNavigator.currentOrThrow
+        LaunchedEffect(key1 = Unit) {
+            viewModel.uiEvents.collect { event ->
+                when (event) {
+                    is IncomeSetupEvent.NavigateToBudgetPlanSetup -> {
+                        navigator.push(BudgetPlanSetup())
+                    }
+                }
+            }
+        }
 
         Column(modifier = Modifier.platformSafeContentPadding()) {
             Row (
@@ -56,7 +65,7 @@ class IncomeSetup: Screen {
                 Row(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalArrangement = Arrangement.End) {
                     PrimaryButton(
                         modifier = Modifier.padding(top = 24.dp),
-                        onClick = { viewModel.save() },
+                        onClick = { viewModel.submit() },
                         text = "Continue",
                         icon = ButtonIcon(
                             icon = Res.drawable.chevron_right,
