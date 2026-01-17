@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.presentation.pages.setup
+package com.andydotdaniel.jajanku.ui.pages.setup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,10 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import com.andydotdaniel.jajanku.presentation.components.GaugeData
-import com.andydotdaniel.jajanku.presentation.components.GroupedGauge
-import com.andydotdaniel.jajanku.presentation.components.PrimaryButton
-import com.andydotdaniel.jajanku.presentation.components.SegmentedPillControl
+import com.andydotdaniel.jajanku.ui.components.GaugeData
+import com.andydotdaniel.jajanku.ui.components.GroupedGauge
+import com.andydotdaniel.jajanku.ui.components.PrimaryButton
+import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

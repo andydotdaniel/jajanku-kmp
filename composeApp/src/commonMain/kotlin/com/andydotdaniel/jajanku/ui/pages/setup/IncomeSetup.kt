@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.presentation.pages.setup
+package com.andydotdaniel.jajanku.ui.pages.setup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.andydotdaniel.jajanku.presentation.components.ButtonIcon
-import com.andydotdaniel.jajanku.presentation.components.PrimaryButton
-import com.andydotdaniel.jajanku.presentation.components.TextInput
+import com.andydotdaniel.jajanku.ui.components.ButtonIcon
+import com.andydotdaniel.jajanku.ui.components.PrimaryButton
+import com.andydotdaniel.jajanku.ui.components.TextInput
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
 import org.jetbrains.compose.ui.tooling.preview.Preview

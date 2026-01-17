@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.presentation.components
+package com.andydotdaniel.jajanku.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

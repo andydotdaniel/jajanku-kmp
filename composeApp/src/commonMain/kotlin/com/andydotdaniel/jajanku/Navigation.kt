@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
-import com.andydotdaniel.jajanku.presentation.pages.setup.IncomeSetup
+import com.andydotdaniel.jajanku.ui.pages.setup.IncomeSetup
 import com.andydotdaniel.jajanku.utils.AppColor
 
 @Composable

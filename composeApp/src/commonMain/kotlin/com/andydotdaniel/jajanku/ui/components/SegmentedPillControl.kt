@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.presentation.components
+package com.andydotdaniel.jajanku.ui.components
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
