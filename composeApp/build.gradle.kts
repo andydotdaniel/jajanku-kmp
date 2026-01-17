@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -26,21 +25,21 @@ kotlin {
     }
     
     sourceSets {
+        val voyagerVersion = "1.1.0-beta02"
+        val koinVersion = "4.1.1"
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
-            val voyagerVersion = "1.1.0-beta02"
-
-            // Navigator
             implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
-            // Screen Model
             implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
-            // BottomSheetNavigator
             implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
-            // Transitions
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koinVersion"))
+            implementation("io.insert-koin:koin-core")
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -53,6 +52,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation("io.insert-koin:koin-test")
         }
     }
 }
