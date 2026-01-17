@@ -1,14 +1,11 @@
-package com.andydotdaniel.jajanku.ui.pages.setup
+package com.andydotdaniel.jajanku.ui.pages.setup.income
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,6 +20,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
+import com.andydotdaniel.jajanku.ui.pages.setup.BudgetPlanSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
@@ -30,10 +28,13 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import jajanku.composeapp.generated.resources.chevron_right
 import jajanku.composeapp.generated.resources.icon_chevron_right
+import org.koin.compose.koinInject
 
 class IncomeSetup: Screen {
     @Composable
     override fun Content() {
+        val viewModel = koinInject<IncomeSetupViewModel>()
+
         val navigator = LocalNavigator.currentOrThrow
 
         Column(modifier = Modifier.platformSafeContentPadding()) {
@@ -55,7 +56,7 @@ class IncomeSetup: Screen {
                 Row(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalArrangement = Arrangement.End) {
                     PrimaryButton(
                         modifier = Modifier.padding(top = 24.dp),
-                        onClick = { navigator.push(BudgetPlanSetup()) },
+                        onClick = { viewModel.save() },
                         text = "Continue",
                         icon = ButtonIcon(
                             icon = Res.drawable.chevron_right,

@@ -38,8 +38,8 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
 
-            implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koinVersion"))
-            implementation("io.insert-koin:koin-core")
+            implementation("io.insert-koin:koin-compose:${koinVersion}")
+            implementation("io.insert-koin:koin-compose-viewmodel:${koinVersion}")
 
             implementation(compose.runtime)
             implementation(compose.foundation)
