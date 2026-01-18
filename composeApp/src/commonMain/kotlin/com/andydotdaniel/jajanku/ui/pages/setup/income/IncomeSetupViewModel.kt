@@ -13,7 +13,7 @@ sealed class IncomeSetupEvent {
 
 class IncomeSetupViewModel: ViewModel() {
 
-    private val MAXIMUM_INCOME_LENGTH = 11
+    private val maximumIncomeLength = 11
 
     data class UIState(
         val income: String = ""
@@ -26,7 +26,7 @@ class IncomeSetupViewModel: ViewModel() {
     val uiEvents = _uiEvents.receiveAsFlow()
 
     fun updateIncome(value: String) {
-        if (value.length <= MAXIMUM_INCOME_LENGTH) {
+        if (value.length <= maximumIncomeLength) {
             _uiState.value = _uiState.value.copy(income = value)
         }
     }

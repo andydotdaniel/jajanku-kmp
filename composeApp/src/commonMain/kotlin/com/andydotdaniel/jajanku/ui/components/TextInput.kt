@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.andydotdaniel.jajanku.utils.AppColor
@@ -19,17 +20,18 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun TextInput(
     modifier: Modifier = Modifier,
-    fontWeight: FontWeight = FontWeight.SemiBold,
+    placeholderText: String,
     value: String,
     onValueChange: (String) -> Unit = {},
     singleLine: Boolean = true,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     TextField(
         modifier = modifier,
         placeholder = { Text(
-            "(e.g. 83,000,000)",
-            fontWeight = fontWeight,
+            placeholderText,
+            fontWeight = FontWeight.SemiBold,
             color = AppColor.PlaceholderGray,
             fontSize = 21.sp
         ) },
@@ -52,6 +54,7 @@ fun TextInput(
             disabledIndicatorColor = Color.Transparent,
             focusedTextColor = AppColor.White,
             unfocusedTextColor = AppColor.White
-        )
+        ),
+        visualTransformation = visualTransformation
     )
 }

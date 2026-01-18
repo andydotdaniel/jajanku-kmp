@@ -28,6 +28,7 @@ import com.andydotdaniel.jajanku.ui.components.TextInput
 import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
+import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
 import jajanku.composeapp.generated.resources.Res
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -69,9 +70,11 @@ class IncomeSetup: Screen {
                 )
                 TextInput(
                     modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+                    placeholderText = "(e.g. 83,000,000)",
                     value = uiState.income,
                     onValueChange = { viewModel.updateIncome(it) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    visualTransformation = NumberFormatterVisualTransformation()
                 )
                 Row(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalArrangement = Arrangement.End) {
                     PrimaryButton(
