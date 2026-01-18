@@ -28,7 +28,6 @@ class IncomeSetupViewModel: ViewModel() {
     }
 
     fun submit() {
-        println("Income value: ${_uiState.value.income}")
         _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup())
     }
 
