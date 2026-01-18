@@ -15,7 +15,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun TextInput(modifier: Modifier = Modifier, fontWeight: FontWeight = FontWeight.SemiBold) {
+fun TextInput(
+    modifier: Modifier = Modifier,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+    value: String,
+    onValueChange: (String) -> Unit = {},
+) {
     TextField(
         modifier = modifier,
         placeholder = { Text(
@@ -24,8 +29,8 @@ fun TextInput(modifier: Modifier = Modifier, fontWeight: FontWeight = FontWeight
             color = AppColor.PlaceholderGray,
             fontSize = 21.sp
         ) },
-        value = "",
-        onValueChange = {},
+        value = value,
+        onValueChange = onValueChange,
         shape = RoundedCornerShape(12.dp),
         colors = TextFieldDefaults.colors(
             focusedContainerColor = AppColor.BackgroundGray,

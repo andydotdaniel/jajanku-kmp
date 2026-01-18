@@ -11,6 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,6 +48,8 @@ class IncomeSetup: Screen {
             }
         }
 
+        val uiState by viewModel.uiState.collectAsState()
+
         Column(modifier = Modifier.platformSafeContentPadding()) {
             Row (
                 modifier = Modifier.fillMaxWidth(),
@@ -61,7 +65,11 @@ class IncomeSetup: Screen {
                     fontWeight = FontWeight.Bold,
                     lineHeight = 36.sp
                 )
-                TextInput(modifier = Modifier.fillMaxWidth().padding(top = 24.dp))
+                TextInput(
+                    modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+                    value = uiState.income,
+                    onValueChange = { viewModel.updateIncome(it) }
+                )
                 Row(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalArrangement = Arrangement.End) {
                     PrimaryButton(
                         modifier = Modifier.padding(top = 24.dp),
