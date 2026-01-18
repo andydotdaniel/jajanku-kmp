@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -55,7 +57,8 @@ class BudgetPlanSetup(): Screen {
             BudgetPlan("30 / 20 / 50", "For the aggressive savers")
         )
 
-        Column(modifier = Modifier.platformSafeContentPadding()) {
+        val scrollState = rememberScrollState()
+        Column(modifier = Modifier.platformSafeContentPadding().verticalScroll(scrollState)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
@@ -93,7 +96,7 @@ class BudgetPlanSetup(): Screen {
                 }
             }
 
-            Row(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalArrangement = Arrangement.End) {
+            Row(modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp), horizontalArrangement = Arrangement.End) {
                 PrimaryButton(
                     modifier = Modifier.padding(top = 24.dp),
                     onClick = { viewModel.submit() },
