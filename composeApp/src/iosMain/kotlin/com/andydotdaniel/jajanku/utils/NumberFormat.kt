@@ -8,6 +8,13 @@ actual class NumberFormatter {
         maximumFractionDigits = 2u
         minimumFractionDigits = 0u
     }
-    actual fun format(value: Double): String =
-        formatter.stringFromNumber(NSNumber(value)) ?: ""
+    actual fun format(value: Double): String {
+        return formatter.stringFromNumber(NSNumber(value))!!
+    }
+
+    actual val decimalSeparator: Char
+        get() {
+            return formatter.decimalSeparator.first()
+        }
+
 }

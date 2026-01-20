@@ -7,6 +7,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 
 expect class NumberFormatter() {
     fun format(value: Double): String
+
+    val decimalSeparator: Char
 }
 
 class NumberFormatterVisualTransformation() : VisualTransformation {
@@ -15,13 +17,14 @@ class NumberFormatterVisualTransformation() : VisualTransformation {
 
     override fun filter(text: AnnotatedString): TransformedText {
         val originalText = text.text
-        val numberValue = originalText.toDoubleOrNull()
 
-        if (originalText.isEmpty() || numberValue == null) {
+        if (originalText.isEmpty()) {
             return TransformedText(text, OffsetMapping.Identity)
         }
 
-        val formattedText = formatter.format(numberValue)
+        // NOTE: Ensure that the original text is a valid double before formatting.
+        // App is set to intentionally crash otherwise to catch these errors early.
+        val formattedText = formatter.format(originalText.toDouble())
 
         val offsetMapping = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
