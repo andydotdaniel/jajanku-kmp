@@ -1,20 +1,19 @@
-package com.andydotdaniel.jajanku.ui.pages.setup
+package com.andydotdaniel.jajanku.ui.pages.setup.review
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -28,10 +27,14 @@ import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 class ReviewBudget: Screen {
     @Composable
     override fun Content() {
+        val viewModel = koinViewModel<ReviewBudgetViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
+
         Column(Modifier.platformSafeContentPadding()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -57,7 +60,9 @@ class ReviewBudget: Screen {
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 val options = listOf("Monthly", "Weekly", "Daily")
-                SegmentedPillControl(options, 0) {}
+                SegmentedPillControl(options, uiState.selectedBudgetView) {
+                    viewModel.selectBudgetView(it)
+                }
 
                 val gaugeData = listOf<GaugeData>(
                     GaugeData("Needs", "440,000", 0.4f),

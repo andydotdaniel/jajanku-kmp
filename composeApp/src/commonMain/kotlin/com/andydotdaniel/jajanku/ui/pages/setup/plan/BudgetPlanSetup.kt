@@ -25,7 +25,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextCard
-import com.andydotdaniel.jajanku.ui.pages.setup.ReviewBudget
+import com.andydotdaniel.jajanku.ui.pages.setup.review.ReviewBudget
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
