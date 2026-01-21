@@ -13,6 +13,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,7 @@ class BudgetPlanSetup(): Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = koinViewModel<BudgetPlanSetupViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
 
         LaunchedEffect(key1 = Unit) {
             viewModel.uiEvents.collect { event ->
@@ -91,8 +94,17 @@ class BudgetPlanSetup(): Screen {
                     fontWeight = FontWeight.Bold,
                     lineHeight = 28.sp
                 )
-                budgetPlans.forEach { budgetPlan ->
-                    TextCard(budgetPlan.name, budgetPlan.description, modifier = Modifier.padding(top = 16.dp))
+                budgetPlans.forEachIndexed { index, budgetPlan ->
+                    val id = "$index"
+
+                    TextCard(
+                        budgetPlan.name,
+                        budgetPlan.description,
+                        id = id,
+                        onClick = { viewModel.selectBudgetPlan(it) },
+                        selected = uiState.selectedBudgetPlan == id,
+                        modifier = Modifier.padding(top = 16.dp)
+                    )
                 }
             }
 

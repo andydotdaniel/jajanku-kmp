@@ -1,5 +1,6 @@
 package com.andydotdaniel.jajanku.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,16 +16,25 @@ import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun TextCard(title: String, body: String, modifier: Modifier = Modifier) {
+fun TextCard(
+    title: String,
+    body: String,
+    id: String,
+    onClick: (id: String) -> Unit = {},
+    selected: Boolean = false,
+    modifier: Modifier = Modifier
+) {
     Surface(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
+        onClick = {
+            onClick(id)
+        },
         shape = RoundedCornerShape(12.dp),
-        color = AppColor.BackgroundGray,
+        color = if (selected) AppColor.PrimaryActive else AppColor.BackgroundGray,
     ) {
         Column(Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
-            Text(title, fontWeight = FontWeight.Bold, color = AppColor.White, fontSize = 28.sp)
-            Text(body, fontWeight = FontWeight.Normal, color = AppColor.LightGray, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp))
+            Text(title, fontWeight = FontWeight.Bold, color = if (selected) AppColor.Black else AppColor.White, fontSize = 28.sp)
+            Text(body, fontWeight = FontWeight.Normal, color = if (selected) AppColor.BackgroundGray else AppColor.LightGray, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp))
         }
     }
 }
@@ -32,6 +42,6 @@ fun TextCard(title: String, body: String, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun TextCardPreview() {
-    TextCard(title = "Some title", body = "Ut enim ad minim veniam")
+    TextCard(title = "Some title", body = "Ut enim ad minim veniam", selected = true, onClick = {}, id = "1")
 }
 
