@@ -33,13 +33,19 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            // Koin Dependency Injection
+            implementation("io.insert-koin:koin-compose:${koinVersion}")
+            implementation("io.insert-koin:koin-compose-viewmodel:${koinVersion}")
+
+            // Voyager Navigation
             implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
 
-            implementation("io.insert-koin:koin-compose:${koinVersion}")
-            implementation("io.insert-koin:koin-compose-viewmodel:${koinVersion}")
+            // Datastore
+            implementation("androidx.datastore:datastore:1.2.0")
+            implementation("androidx.datastore:datastore-preferences:1.2.0")
 
             implementation(compose.runtime)
             implementation(compose.foundation)
