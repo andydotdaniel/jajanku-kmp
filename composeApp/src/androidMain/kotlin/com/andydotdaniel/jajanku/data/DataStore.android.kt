@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 
 actual class AppDataStore(private val context: Context) : PreferencesDataStore {
 
-    actual override val dataStore: DataStore<Preferences> = createDataStore(
+    actual override val preferences: DataStore<Preferences> = createDataStore(
         producePath = { context.filesDir.resolve(dataStoreFileName).absolutePath }
     )
 

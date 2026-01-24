@@ -1,6 +1,9 @@
 package com.andydotdaniel.jajanku.ui.pages.setup.income
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.andydotdaniel.jajanku.data.AppDataStore
+import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.NumberInputSanitizer
 import kotlinx.coroutines.channels.Channel
@@ -8,12 +11,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 sealed class IncomeSetupEvent {
     class NavigateToBudgetPlanSetup() : IncomeSetupEvent()
 }
 
-class IncomeSetupViewModel: ViewModel() {
+class IncomeSetupViewModel(
+    private val dataStore: AppDataStore,
+    private val incomeRepository: IncomeRepository
+): ViewModel() {
 
     private val maximumIncomeLength = 11
 
@@ -30,18 +37,32 @@ class IncomeSetupViewModel: ViewModel() {
     val numberFormatter = NumberFormatter()
     val numberInputSanitizer = NumberInputSanitizer(numberFormatter.decimalSeparator)
 
+    init {
+        viewModelScope.launch {
+            incomeRepository.getIncome().collect { value ->
+                updateIncome(value.toString())
+            }
+        }
+    }
+
     fun updateIncome(value: String) {
         if (value.length <= maximumIncomeLength) {
             val sanitizedInput = numberInputSanitizer.sanitize(value)
+            val doubleSanitizedInput = sanitizedInput.toDoubleOrNull()
 
-            if (sanitizedInput.toDoubleOrNull() != null || value.isEmpty()) {
+            if ((doubleSanitizedInput != null && doubleSanitizedInput > 0) || sanitizedInput.isEmpty()) {
                 _uiState.value = _uiState.value.copy(income = sanitizedInput)
             }
         }
     }
 
     fun submit() {
-        _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup())
+        viewModelScope.launch {
+            val doubleIncome = uiState.value.income.toDouble()
+            incomeRepository.updateIncome(doubleIncome)
+
+            _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup())
+        }
     }
 
 }

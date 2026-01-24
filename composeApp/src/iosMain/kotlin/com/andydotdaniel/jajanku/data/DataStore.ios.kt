@@ -10,7 +10,7 @@ import platform.Foundation.NSURL
 
 actual class AppDataStore : PreferencesDataStore {
     @OptIn(ExperimentalForeignApi::class)
-    actual override val dataStore: DataStore<Preferences> = createDataStore(
+    actual override val preferences: DataStore<Preferences> = createDataStore(
         producePath = {
             val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
                 directory = NSDocumentDirectory,

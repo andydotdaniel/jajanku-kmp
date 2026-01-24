@@ -6,11 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import okio.Path.Companion.toPath
 
 interface PreferencesDataStore {
-    val dataStore: DataStore<Preferences>
+    val preferences: DataStore<Preferences>
 }
 
 expect class AppDataStore: PreferencesDataStore {
-    override val dataStore: DataStore<Preferences>
+    override val preferences: DataStore<Preferences>
 }
 
 /**
@@ -21,4 +21,4 @@ fun createDataStore(producePath: () -> String): DataStore<Preferences> =
         produceFile = { producePath().toPath() }
     )
 
-internal const val dataStoreFileName = "dice.preferences_pb"
+internal const val dataStoreFileName = "app.preferences_pb"
