@@ -60,9 +60,9 @@ class IncomeSetupViewModel(
         viewModelScope.launch {
             val doubleIncome = uiState.value.income.toDouble()
             incomeRepository.updateIncome(doubleIncome)
-
-            _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup())
         }
+
+        _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup())
     }
 
 }
