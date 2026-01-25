@@ -16,6 +16,16 @@ import kotlinx.coroutines.launch
 
 class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ViewModel() {
 
+    enum class BudgetView(val value : Int) {
+        MONTHLY(0),
+        WEEKLY(1),
+        DAILY(2);
+
+        companion object {
+            fun from(findValue: Int): BudgetView = entries.first { it.value == findValue }
+        }
+    }
+
     private val numberFormatter = NumberFormatter()
 
     data class UIState(
@@ -41,7 +51,20 @@ class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ViewModel()
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
 
     fun selectBudgetView(index: Int) {
-        _uiState.value = _uiState.value.copy(selectedBudgetView = index)
+        val budgetView = BudgetView.from(index)
+        val budgetViewRatio = when (budgetView) {
+            BudgetView.MONTHLY -> 1.0
+            BudgetView.WEEKLY -> 4.0
+            BudgetView.DAILY -> 30.0
+        }
+
+        _uiState.value = _uiState.value.copy(
+            selectedBudgetView = index,
+            spendingBudget = numberFormatter.format(spendingBudget / budgetViewRatio),
+            savings = numberFormatter.format(savings / budgetViewRatio),
+            wants = wantsGaugeData.copy(value = numberFormatter.format(wants / budgetViewRatio)),
+            needs = needsGaugeData.copy(value = numberFormatter.format(needs / budgetViewRatio))
+        )
     }
 
 }
