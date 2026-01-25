@@ -6,6 +6,7 @@ data class Budget(
 )
 
 data class BudgetPlan (
+    val id: String,
     val needs: Int,
     val wants: Int,
     val savings: Int

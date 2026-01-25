@@ -1,6 +1,8 @@
 package com.andydotdaniel.jajanku.di
 
+import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
+import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
@@ -13,6 +15,7 @@ internal expect fun dataStoreModule(): Module
 
 internal fun repositoryModule(): Module = module {
     single<IncomeRepository> { AppIncomeRepository(get()) }
+    single<BudgetPlanRepository> { AppBudgetPlanRepository(get()) }
 }
 
 val sharedModules = module {

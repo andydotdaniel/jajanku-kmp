@@ -34,8 +34,6 @@ import jajanku.composeapp.generated.resources.icon_chevron_right
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-data class BudgetPlan(val name: String, val description: String)
-
 class BudgetPlanSetup(): Screen {
 
     @Composable
@@ -53,12 +51,6 @@ class BudgetPlanSetup(): Screen {
                 }
             }
         }
-
-        val budgetPlans = listOf<BudgetPlan>(
-            BudgetPlan("50 / 30 / 20", "The most popular budgeting formula"),
-            BudgetPlan("70 / 20 / 10", "For those who need to spend more"),
-            BudgetPlan("30 / 20 / 50", "For the aggressive savers")
-        )
 
         val scrollState = rememberScrollState()
         Column(modifier = Modifier.platformSafeContentPadding().verticalScroll(scrollState)) {
@@ -94,7 +86,7 @@ class BudgetPlanSetup(): Screen {
                     fontWeight = FontWeight.Bold,
                     lineHeight = 28.sp
                 )
-                budgetPlans.forEachIndexed { index, budgetPlan ->
+                viewModel.defaultBudgetPlans.forEachIndexed { index, budgetPlan ->
                     val id = "$index"
 
                     TextCard(
