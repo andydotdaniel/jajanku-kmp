@@ -47,11 +47,11 @@ class ReviewBudget: Screen {
                 modifier = Modifier.fillMaxWidth().padding(top = 68.dp)
             ) {
                 Text("Spending Budget", color = AppColor.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                Text("2,500,000", color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
+                Text(viewModel.uiState.value.spendingBudget, color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
                 Row(modifier = Modifier.padding(top = 14.dp)) {
                     Text("\uD83D\uDCB0 Savings", color = AppColor.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("+ 500,000", color = AppColor.PrimaryActive, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                    Text("+ ${viewModel.uiState.value.savings}", color = AppColor.PrimaryActive, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                 }
             }
             Column(
@@ -65,8 +65,8 @@ class ReviewBudget: Screen {
                 }
 
                 val gaugeData = listOf<GaugeData>(
-                    GaugeData("Needs", "440,000", 0.4f),
-                    GaugeData("Wants", "1,440,000", 0.6f),
+                    viewModel.uiState.value.needs,
+                    viewModel.uiState.value.wants
                 )
                 GroupedGauge(gaugeData)
             }
