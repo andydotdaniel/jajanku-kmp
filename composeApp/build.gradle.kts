@@ -58,7 +58,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation("io.insert-koin:koin-test")
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.assertk)
         }
     }
 }

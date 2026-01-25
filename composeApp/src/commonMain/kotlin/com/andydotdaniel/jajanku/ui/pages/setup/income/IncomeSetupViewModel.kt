@@ -2,7 +2,6 @@ package com.andydotdaniel.jajanku.ui.pages.setup.income
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andydotdaniel.jajanku.data.AppDataStore
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.NumberInputSanitizer
@@ -17,10 +16,7 @@ sealed class IncomeSetupEvent {
     class NavigateToBudgetPlanSetup() : IncomeSetupEvent()
 }
 
-class IncomeSetupViewModel(
-    private val dataStore: AppDataStore,
-    private val incomeRepository: IncomeRepository
-): ViewModel() {
+class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): ViewModel() {
 
     private val maximumIncomeLength = 11
 
