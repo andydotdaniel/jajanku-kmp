@@ -45,7 +45,7 @@ class IncomeSetup: Screen {
             viewModel.uiEvents.collect { event ->
                 when (event) {
                     is IncomeSetupEvent.NavigateToBudgetPlanSetup -> {
-                        navigator.push(BudgetPlanSetup())
+                        navigator.push(BudgetPlanSetup(event.income))
                     }
                 }
             }

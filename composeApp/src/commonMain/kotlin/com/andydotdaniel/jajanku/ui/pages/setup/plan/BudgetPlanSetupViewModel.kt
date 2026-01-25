@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 data class BudgetPlanViewData(val name: String, val description: String)
 
 sealed class BudgetPlanSetupEvent {
-    class NavigateToReviewBudget() : BudgetPlanSetupEvent()
+    class NavigateToReviewBudget(val budgetPlan: BudgetPlan) : BudgetPlanSetupEvent()
 }
 
 class BudgetPlanSetupViewModel(
@@ -51,17 +51,17 @@ class BudgetPlanSetupViewModel(
         viewModelScope.launch {
             val selectedBudgetPlan = _uiState.value.selectedBudgetPlan
             val budgetParts = defaultBudgetPlans[selectedBudgetPlan.toInt()].name.split(" / ")
-            val budgetPlanViewData = BudgetPlan(
+            val budgetPlan = BudgetPlan(
                 selectedBudgetPlan,
                 budgetParts[0].toInt(),
                 budgetParts[1].toInt(),
                 budgetParts[2].toInt()
             )
 
-            repository.saveBudgetPlan(budgetPlanViewData)
-        }
+            repository.saveBudgetPlan(budgetPlan)
 
-        _uiEvents.trySend(BudgetPlanSetupEvent.NavigateToReviewBudget())
+            _uiEvents.trySend(BudgetPlanSetupEvent.NavigateToReviewBudget(budgetPlan))
+        }
     }
 
     fun selectBudgetPlan(id: String) {

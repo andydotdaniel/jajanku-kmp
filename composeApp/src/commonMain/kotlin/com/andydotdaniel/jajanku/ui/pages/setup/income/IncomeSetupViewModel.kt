@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 sealed class IncomeSetupEvent {
-    class NavigateToBudgetPlanSetup() : IncomeSetupEvent()
+    class NavigateToBudgetPlanSetup(val income: Double) : IncomeSetupEvent()
 }
 
 class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): ViewModel() {
@@ -56,9 +56,8 @@ class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): View
         viewModelScope.launch {
             val doubleIncome = uiState.value.income.toDouble()
             incomeRepository.updateIncome(doubleIncome)
+            _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup(doubleIncome))
         }
-
-        _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup())
     }
 
 }

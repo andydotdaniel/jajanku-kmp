@@ -34,7 +34,7 @@ import jajanku.composeapp.generated.resources.icon_chevron_right
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-class BudgetPlanSetup(): Screen {
+class BudgetPlanSetup(private val income: Double): Screen {
 
     @Composable
     override fun Content() {
@@ -46,7 +46,7 @@ class BudgetPlanSetup(): Screen {
             viewModel.uiEvents.collect { event ->
                 when (event) {
                     is BudgetPlanSetupEvent.NavigateToReviewBudget -> {
-                        navigator.push(ReviewBudget())
+                        navigator.push(ReviewBudget(income, event.budgetPlan))
                     }
                 }
             }
@@ -124,7 +124,7 @@ fun BudgetPlanSetupPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            BudgetPlanSetup().Content()
+            BudgetPlanSetup(income = 100000.0).Content()
         }
     }
 }

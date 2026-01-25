@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
@@ -28,11 +29,14 @@ import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
-class ReviewBudget: Screen {
+class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPlan): Screen {
     @Composable
     override fun Content() {
-        val viewModel = koinViewModel<ReviewBudgetViewModel>()
+        val viewModel = koinViewModel<ReviewBudgetViewModel>(
+            parameters = { parametersOf(income, budgetPlan) }
+        )
         val uiState by viewModel.uiState.collectAsState()
 
         Column(Modifier.platformSafeContentPadding()) {
@@ -88,7 +92,7 @@ fun ReviewBudgetPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            ReviewBudget().Content()
+            ReviewBudget(12000.0, BudgetPlan("0", 50, 30, 20)).Content()
         }
     }
 }
