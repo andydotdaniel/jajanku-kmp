@@ -29,8 +29,8 @@ import com.andydotdaniel.jajanku.ui.pages.setup.review.ReviewBudget
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
-import jajanku.composeapp.generated.resources.chevron_right
-import jajanku.composeapp.generated.resources.icon_chevron_right
+import jajanku.composeapp.generated.resources.chevron_right_24px
+import jajanku.composeapp.generated.resources.icon_chevron_right_24px
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -106,8 +106,8 @@ class BudgetPlanSetup(private val income: Double): Screen {
                     onClick = { viewModel.submit() },
                     text = "Continue",
                     icon = ButtonIcon(
-                        icon = Res.drawable.chevron_right,
-                        contentDescription = Res.string.icon_chevron_right
+                        icon = Res.drawable.chevron_right_24px,
+                        contentDescription = Res.string.icon_chevron_right_24px
                     )
                 )
             }

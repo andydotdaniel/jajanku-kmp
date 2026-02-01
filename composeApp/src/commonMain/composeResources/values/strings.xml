@@ -1,3 +1,4 @@
 <resources>
-    <string name="icon_chevron_right">Continue</string>
+    <string name="icon_chevron_right_24px">Continue</string>
+    <string name="icon_close_24px">Close</string>
 </resources>

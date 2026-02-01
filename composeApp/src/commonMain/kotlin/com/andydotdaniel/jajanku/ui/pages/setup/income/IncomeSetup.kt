@@ -32,8 +32,8 @@ import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
 import jajanku.composeapp.generated.resources.Res
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import jajanku.composeapp.generated.resources.chevron_right
-import jajanku.composeapp.generated.resources.icon_chevron_right
+import jajanku.composeapp.generated.resources.chevron_right_24px
+import jajanku.composeapp.generated.resources.icon_chevron_right_24px
 import org.koin.compose.koinInject
 
 class IncomeSetup: Screen {
@@ -82,8 +82,8 @@ class IncomeSetup: Screen {
                         onClick = { viewModel.submit() },
                         text = "Continue",
                         icon = ButtonIcon(
-                            icon = Res.drawable.chevron_right,
-                            contentDescription = Res.string.icon_chevron_right
+                            icon = Res.drawable.chevron_right_24px,
+                            contentDescription = Res.string.icon_chevron_right_24px
                         )
                     )
                 }

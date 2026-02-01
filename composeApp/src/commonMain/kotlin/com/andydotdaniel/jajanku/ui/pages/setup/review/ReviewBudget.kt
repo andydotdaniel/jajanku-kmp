@@ -64,7 +64,7 @@ class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPla
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 val options = listOf("Monthly", "Weekly", "Daily")
-                SegmentedPillControl(options, uiState.selectedBudgetView) {
+                SegmentedPillControl(options = options, selectedIndex = uiState.selectedBudgetView) {
                     viewModel.selectBudgetView(it)
                 }
 
