@@ -1,9 +1,11 @@
 package com.andydotdaniel.jajanku.ui.pages.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -65,7 +68,7 @@ class Home: Screen {
 fun PreviewHomeScreen() {
     Scaffold (
         topBar = {
-            Row {
+            Row(modifier = Modifier.platformSafeContentPadding().fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 IconButton(
                     onClick = { /* Handle click */ },
                     modifier = Modifier
@@ -108,7 +111,7 @@ fun PreviewHomeScreen() {
                 )
             )
 
-            LazyColumn(modifier = Modifier.platformSafeContentPadding()) {
+            LazyColumn(modifier = Modifier.platformSafeContentPadding().padding(top = 64.dp)) {
                 item {
                     Text("Remaining Budget", color = AppColor.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                     Text("234000", color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
