@@ -1,4 +1,5 @@
 <resources>
     <string name="icon_chevron_right_24px">Continue</string>
     <string name="icon_close_24px">Close</string>
+    <string name="icon_settings_24px">Settings</string>
 </resources>
