@@ -1,5 +1,6 @@
 package com.andydotdaniel.jajanku.di
 
+import com.andydotdaniel.jajanku.Launcher
 import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
@@ -23,6 +24,8 @@ internal fun repositoryModule(): Module = module {
 val sharedModules = module {
     includes(dataStoreModule())
     includes(repositoryModule())
+
+    single<Launcher> { Launcher(get()) }
 
     viewModelOf(::IncomeSetupViewModel)
     viewModelOf(::BudgetPlanSetupViewModel)
