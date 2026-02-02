@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
+import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
@@ -87,16 +88,60 @@ class Home: Screen {
                         description = "Some long text about the item description that's long",
                         category = "Drink",
                         time = "09:00",
+                    ),
+                    ExpenseItem(
+                        id = 1,
+                        icon = "\uD83C\uDF54",
+                        amount = "Rp 24103",
+                        category = "Food",
+                        time = "12:00",
+                    ),
+                    ExpenseItem(
+                        id = 2,
+                        icon = "\uD83C\uDF79",
+                        amount = "Rp 12103",
+                        category = "Drink",
+                        time = "11:00",
+                    ),
+                    ExpenseItem(
+                        id = 3,
+                        icon = "\uD83C\uDF79",
+                        amount = "Rp 73103",
+                        description = "Some long text about the item description that's long",
+                        category = "Drink",
+                        time = "09:00",
+                    ),
+                    ExpenseItem(
+                        id = 1,
+                        icon = "\uD83C\uDF54",
+                        amount = "Rp 24103",
+                        category = "Food",
+                        time = "12:00",
+                    ),
+                    ExpenseItem(
+                        id = 2,
+                        icon = "\uD83C\uDF79",
+                        amount = "Rp 12103",
+                        category = "Drink",
+                        time = "11:00",
+                    ),
+                    ExpenseItem(
+                        id = 3,
+                        icon = "\uD83C\uDF79",
+                        amount = "Rp 73103",
+                        description = "Some long text about the item description that's long",
+                        category = "Drink",
+                        time = "09:00",
                     )
                 )
 
-                LazyColumn(modifier = Modifier.platformSafeContentPadding().padding(top = 64.dp)) {
+                LazyColumn(modifier = Modifier.platformSafeContentPadding().padding(top = 72.dp)) {
                     item {
                         Text("Remaining Budget", color = AppColor.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                         Text(uiState.remainingBudget, color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
 
                         val options = listOf("Monthly", "Weekly", "Daily")
-                        SegmentedPillControl(modifier = Modifier.padding(top = 16.dp), options = options, 1) {
+                        SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, 1) {
 
                         }
                     }
@@ -115,9 +160,15 @@ class Home: Screen {
                             Spacer(modifier = Modifier.height(16.dp))
                             HorizontalDivider(thickness = 1.dp, color = Color(0xFF333333))
                             Spacer(modifier = Modifier.height(16.dp))
+                        }  else {
+                            Spacer(modifier = Modifier.height(80.dp))
                         }
                     }
                 }
+            },
+
+            floatingActionButton = {
+                PrimaryButton(text = "Add Expense", onClick = {})
             }
         )
     }
@@ -200,6 +251,10 @@ fun PreviewHomeScreen() {
                     }
                 }
             }
+        },
+
+        floatingActionButton = {
+            PrimaryButton(text = "Add Expense", onClick = {})
         }
     )
 
