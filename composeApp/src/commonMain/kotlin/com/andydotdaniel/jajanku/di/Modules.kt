@@ -5,6 +5,7 @@ import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
+import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreenViewModel
 import com.andydotdaniel.jajanku.ui.pages.home.HomeViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
@@ -36,4 +37,5 @@ val sharedModules = module {
         )
     }
     viewModelOf(::HomeViewModel)
+    viewModelOf(::AddExpenseScreenViewModel)
 }

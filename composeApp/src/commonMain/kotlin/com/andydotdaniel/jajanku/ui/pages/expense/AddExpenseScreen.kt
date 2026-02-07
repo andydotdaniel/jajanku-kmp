@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +42,7 @@ import jajanku.composeapp.generated.resources.icon_close_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 class AddExpenseScreen: Screen, ModalScreen {
 
@@ -52,6 +53,8 @@ class AddExpenseScreen: Screen, ModalScreen {
             color = AppColor.Black
         ) {
             val navigator = LocalNavigator.currentOrThrow
+            val viewModel = koinViewModel<AddExpenseScreenViewModel>()
+            val uiState by viewModel.uiState.collectAsState()
 
             Column(modifier = Modifier.platformSafeContentPadding()) {
                 Row(
@@ -85,8 +88,8 @@ class AddExpenseScreen: Screen, ModalScreen {
                     TextInput(
                         modifier = Modifier.fillMaxWidth().padding(top = 48.dp),
                         placeholderText = "Expense Amount",
-                        value = "",
-                        onValueChange = { },
+                        value = uiState.expenseAmount,
+                        onValueChange = { viewModel.updateExpenseAmount(it) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         visualTransformation = NumberFormatterVisualTransformation()
                     )
@@ -98,10 +101,9 @@ class AddExpenseScreen: Screen, ModalScreen {
                     TextInput(
                         modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
                         placeholderText = "Notes (Optional)",
-                        value = "",
-                        onValueChange = { },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                        visualTransformation = NumberFormatterVisualTransformation()
+                        value = uiState.notes,
+                        onValueChange = { viewModel.updateNotes(it) },
+                        singleLine = false
                     )
                     PrimaryButton(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), text = "Save Expense", onClick = {})
                 }
