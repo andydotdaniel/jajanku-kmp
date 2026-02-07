@@ -27,38 +27,32 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.DropdownPicker
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
+import com.andydotdaniel.jajanku.ui.navigation.ModalScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
 import jajanku.composeapp.generated.resources.Res
 import jajanku.composeapp.generated.resources.close_24px
 import jajanku.composeapp.generated.resources.icon_close_24px
-import jajanku.composeapp.generated.resources.icon_settings_24px
-import jajanku.composeapp.generated.resources.settings_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-class AddExpenseScreen: Screen {
+class AddExpenseScreen: Screen, ModalScreen {
 
     @Composable
     override fun Content() {
-        TODO("Not yet implemented")
-    }
-
-}
-
-@Preview
-@Composable
-fun Preview_AddExpenseScreen() {
-    MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
+            val navigator = LocalNavigator.currentOrThrow
+
             Column(modifier = Modifier.platformSafeContentPadding()) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -66,7 +60,7 @@ fun Preview_AddExpenseScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = { /* Handle click */ },
+                        onClick = { navigator.pop() },
                         modifier = Modifier
                             .size(36.dp) // Set a fixed size
                             .clip(CircleShape) // Clip the button to a circle
@@ -114,4 +108,11 @@ fun Preview_AddExpenseScreen() {
             }
         }
     }
+
+}
+
+@Preview
+@Composable
+fun Preview_AddExpenseScreen() {
+    AddExpenseScreen().Content()
 }

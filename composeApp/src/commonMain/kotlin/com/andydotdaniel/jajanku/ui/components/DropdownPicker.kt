@@ -1,12 +1,12 @@
 package com.andydotdaniel.jajanku.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,12 +38,18 @@ fun DropdownPicker(
     onClick: () -> Unit
 ) {
     Box(modifier = modifier
-        .clip(RoundedCornerShape(12.dp))
-        .border(1.dp, AppColor.PlaceholderGray)
-        .padding(all = 16.dp)
         .clickable(onClick = onClick)
+        .background(color = AppColor.BackgroundGray, shape = RoundedCornerShape(16.dp))
+        .border(
+            width = 1.dp,
+            color = AppColor.PlaceholderGray,
+            shape = RoundedCornerShape(16.dp)
+        )
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(all = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
             Text(
                 text = placeholderText,
                 fontWeight = FontWeight.SemiBold,

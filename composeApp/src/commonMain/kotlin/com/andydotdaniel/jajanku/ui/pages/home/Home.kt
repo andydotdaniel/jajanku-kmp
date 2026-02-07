@@ -25,10 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
+import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
@@ -45,6 +48,8 @@ class Home: Screen {
     override fun Content() {
         val viewModel = koinViewModel<HomeViewModel>()
         val uiState by viewModel.uiState.collectAsState()
+
+        val navigator = LocalNavigator.currentOrThrow
 
         Scaffold (
             topBar = {
@@ -168,7 +173,9 @@ class Home: Screen {
             },
 
             floatingActionButton = {
-                PrimaryButton(text = "Add Expense", onClick = {})
+                PrimaryButton(text = "Add Expense", onClick = {
+                    navigator.push(AddExpenseScreen())
+                })
             }
         )
     }
