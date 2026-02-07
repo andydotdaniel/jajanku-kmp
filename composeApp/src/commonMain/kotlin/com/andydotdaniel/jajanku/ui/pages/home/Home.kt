@@ -32,6 +32,7 @@ import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreen
+import com.andydotdaniel.jajanku.ui.pages.settings.SettingsScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
@@ -55,7 +56,7 @@ class Home: Screen {
             topBar = {
                 Row(modifier = Modifier.platformSafeContentPadding().fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                     IconButton(
-                        onClick = { /* Handle click */ },
+                        onClick = { navigator.push(SettingsScreen()) },
                         modifier = Modifier
                             .size(36.dp) // Set a fixed size
                             .clip(CircleShape) // Clip the button to a circle
@@ -163,7 +164,7 @@ class Home: Screen {
                         ExpenseListItem(item, false) {}
                         if (index < data.size - 1) {
                             Spacer(modifier = Modifier.height(16.dp))
-                            HorizontalDivider(thickness = 1.dp, color = Color(0xFF333333))
+                            HorizontalDivider(thickness = 1.dp, color = AppColor.BackgroundGray)
                             Spacer(modifier = Modifier.height(16.dp))
                         }  else {
                             Spacer(modifier = Modifier.height(80.dp))
