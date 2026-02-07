@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -13,7 +14,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -23,7 +24,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val voyagerVersion = "1.1.0-beta02"
         val koinVersion = "4.1.1"
@@ -46,6 +47,10 @@ kotlin {
             // Datastore
             implementation("androidx.datastore:datastore:1.2.0")
             implementation("androidx.datastore:datastore-preferences:1.2.0")
+
+            // Room
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -93,5 +98,11 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    add("kspAndroid", "androidx.room:room-compiler:2.6.1")
+    add("kspIosArm64", "androidx.room:room-compiler:2.6.1")
+    add("kspIosSimulatorArm64", "androidx.room:room-compiler:2.6.1")
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
