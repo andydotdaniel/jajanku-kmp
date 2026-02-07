@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import com.andydotdaniel.jajanku.ui.components.DropdownPicker
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
@@ -94,6 +95,11 @@ fun Preview_AddExpenseScreen() {
                         onValueChange = { },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         visualTransformation = NumberFormatterVisualTransformation()
+                    )
+                    DropdownPicker(
+                        modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+                        placeholderText = "Select Category",
+                        onClick = {}
                     )
                     TextInput(
                         modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
