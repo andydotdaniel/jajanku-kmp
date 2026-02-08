@@ -34,6 +34,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
             // Koin Dependency Injection
             implementation("io.insert-koin:koin-compose:${koinVersion}")
             implementation("io.insert-koin:koin-compose-viewmodel:${koinVersion}")
