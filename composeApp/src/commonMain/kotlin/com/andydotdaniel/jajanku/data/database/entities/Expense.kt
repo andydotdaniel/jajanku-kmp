@@ -9,7 +9,6 @@ import androidx.room.Index
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
-import kotlin.time.Instant
 
 @Entity(
     foreignKeys = [
@@ -29,13 +28,13 @@ data class Expense(
     @ColumnInfo val amount: Float,
     @ColumnInfo(name = "type_id") val type: Int,
     @ColumnInfo val notes: String?,
-    @ColumnInfo val timestamp: Instant
+    @ColumnInfo val timestamp: Long
 )
 
 @Dao
 interface ExpenseDao {
     @Query("SELECT * FROM expense WHERE timestamp >= :startTime AND timestamp < :endTime")
-    suspend fun findByTimeRange(startTime: Instant, endTime: Instant): List<Expense>
+    suspend fun findByTimeRange(startTime: Long, endTime: Long): List<Expense>
 
     @Query("DELETE FROM expense WHERE uid = :id")
     suspend fun deleteById(id: Int)

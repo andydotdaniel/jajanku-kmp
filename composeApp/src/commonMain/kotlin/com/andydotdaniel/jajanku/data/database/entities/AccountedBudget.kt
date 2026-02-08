@@ -11,14 +11,14 @@ import kotlinx.datetime.LocalDate
 
 @Entity(tableName = "accounted_budget")
 data class AccountedBudget(
-    @PrimaryKey val date: LocalDate,
+    @PrimaryKey val date: String,
     @ColumnInfo(name = "budget") val budget: Float
 )
 
 @Dao
 interface AccountedBudgetDao {
     @Query("SELECT * FROM accounted_budget WHERE date >= :startDate AND date < :endDate")
-    fun findByDateRange(startDate: LocalDate, endDate: LocalDate): List<AccountedBudget>
+    fun findByDateRange(startDate: String, endDate: String): List<AccountedBudget>
 
     @Insert
     fun insertAll(vararg accountedBudgets: AccountedBudget)

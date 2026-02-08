@@ -18,7 +18,7 @@ navigationCompose = "2.9.6"
 assertk = "0.28.1"
 room = "2.8.4"
 sqlite = "2.6.2"
-ksp = "2.3.0"
+ksp = "2.3.4"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
