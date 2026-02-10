@@ -17,9 +17,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.key
 import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.transitions.SlideTransition
+import com.andydotdaniel.jajanku.data.database.DatabaseSeeder
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.ui.navigation.ModalScreen
 import com.andydotdaniel.jajanku.ui.pages.home.Home
@@ -32,7 +31,14 @@ sealed interface NavigationState {
 
 }
 
-class Launcher(private val budgetRepository: BudgetPlanRepository) {
+class Launcher(
+    databaseSeeder: DatabaseSeeder,
+    private val budgetRepository: BudgetPlanRepository
+) {
+
+    init {
+        databaseSeeder.seedDatabaseIfNeeded()
+    }
 
     @Composable
     fun Navigation() {

@@ -1,9 +1,15 @@
 package com.andydotdaniel.jajanku.di
 
 import com.andydotdaniel.jajanku.Launcher
+import com.andydotdaniel.jajanku.data.database.AppDatabase
+import com.andydotdaniel.jajanku.data.database.AppDatabaseBuilder
+import com.andydotdaniel.jajanku.data.database.DatabaseSeeder
+import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
 import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
+import com.andydotdaniel.jajanku.data.repository.AppDatabaseInitializerRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
+import com.andydotdaniel.jajanku.data.repository.DatabaseInitializerRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreenViewModel
 import com.andydotdaniel.jajanku.ui.pages.home.HomeViewModel
@@ -15,18 +21,34 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
+// DataStore here refers our key-pair data store for storing user defaults and preferences
+// Database refers to our app's main database that stores our expenses and other core data
 internal expect fun dataStoreModule(): Module
+internal expect fun databaseBuilderModule(): Module
 
 internal fun repositoryModule(): Module = module {
     single<IncomeRepository> { AppIncomeRepository(get()) }
     single<BudgetPlanRepository> { AppBudgetPlanRepository(get()) }
+
+    single<DatabaseInitializerRepository> { AppDatabaseInitializerRepository(get(), get()) }
+}
+internal fun databaseModule(): Module = module {
+    single<DatabaseSeeder> { DatabaseSeeder(get()) }
+    single<AppDatabase> { AppDatabaseBuilder(get()).build() }
+
+    // Provide the YourDao instance by getting it from the AppDatabase
+    single<ExpenseTypeDao> { get<AppDatabase>().expenseTypeDao() }
 }
 
 val sharedModules = module {
     includes(dataStoreModule())
+
+    includes(databaseBuilderModule())
+    includes(databaseModule())
+
     includes(repositoryModule())
 
-    single<Launcher> { Launcher(get()) }
+    single<Launcher> { Launcher(get(), get()) }
 
     viewModelOf(::IncomeSetupViewModel)
     viewModelOf(::BudgetPlanSetupViewModel)

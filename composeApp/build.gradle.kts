@@ -52,6 +52,7 @@ kotlin {
 
             // Room
             implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite)
             implementation(libs.androidx.sqlite.bundled)
 
             implementation(compose.runtime)

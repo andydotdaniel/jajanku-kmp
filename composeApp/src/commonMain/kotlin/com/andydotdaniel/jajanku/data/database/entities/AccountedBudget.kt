@@ -7,7 +7,6 @@ import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.datetime.LocalDate
 
 @Entity(tableName = "accounted_budget")
 data class AccountedBudget(

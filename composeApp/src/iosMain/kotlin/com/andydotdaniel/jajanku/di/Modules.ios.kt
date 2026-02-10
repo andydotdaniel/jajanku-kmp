@@ -7,3 +7,7 @@ import org.koin.dsl.module
 internal actual fun dataStoreModule(): Module = module {
     single { AppDataStore() }
 }
+
+internal actual fun databaseBuilderModule(): Module {
+    TODO("Not yet implemented")
+}
