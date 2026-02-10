@@ -32,6 +32,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.DropdownPicker
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
+import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeBottomSheet
 import com.andydotdaniel.jajanku.ui.navigation.ModalScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
@@ -55,6 +56,14 @@ class AddExpenseScreen: Screen, ModalScreen {
             val navigator = LocalNavigator.currentOrThrow
             val viewModel = koinViewModel<AddExpenseScreenViewModel>()
             val uiState by viewModel.uiState.collectAsState()
+
+            if (uiState.isExpenseTypeSheetOpen) {
+                ExpenseTypeBottomSheet(
+                    expenseTypes = uiState.expenseTypes,
+                    onExpenseTypeSelected = { viewModel.onExpenseTypeSelected(it) },
+                    onDismiss = { viewModel.showExpenseTypeSheet(false) }
+                )
+            }
 
             Column(modifier = Modifier.platformSafeContentPadding()) {
                 Row(
@@ -96,7 +105,7 @@ class AddExpenseScreen: Screen, ModalScreen {
                     DropdownPicker(
                         modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
                         placeholderText = "Select Category",
-                        onClick = {}
+                        onClick = { viewModel.showExpenseTypeSheet(true) }
                     )
                     TextInput(
                         modifier = Modifier.fillMaxWidth().padding(top = 24.dp),

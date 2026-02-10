@@ -7,9 +7,11 @@ import com.andydotdaniel.jajanku.data.database.DatabaseSeeder
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
 import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.AppDatabaseInitializerRepository
+import com.andydotdaniel.jajanku.data.repository.AppExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.DatabaseInitializerRepository
+import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreenViewModel
 import com.andydotdaniel.jajanku.ui.pages.home.HomeViewModel
@@ -27,10 +29,11 @@ internal expect fun dataStoreModule(): Module
 internal expect fun databaseBuilderModule(): Module
 
 internal fun repositoryModule(): Module = module {
+    single<DatabaseInitializerRepository> { AppDatabaseInitializerRepository(get(), get()) }
+
     single<IncomeRepository> { AppIncomeRepository(get()) }
     single<BudgetPlanRepository> { AppBudgetPlanRepository(get()) }
-
-    single<DatabaseInitializerRepository> { AppDatabaseInitializerRepository(get(), get()) }
+    single<ExpenseTypeRepository> { AppExpenseRepository(get()) }
 }
 internal fun databaseModule(): Module = module {
     single<DatabaseSeeder> { DatabaseSeeder(get()) }
