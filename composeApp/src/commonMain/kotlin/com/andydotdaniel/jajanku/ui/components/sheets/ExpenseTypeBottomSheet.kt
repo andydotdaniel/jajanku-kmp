@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 
 data class ExpenseTypeViewItem(
-    val id: String,
+    val id: Int,
     val title: String
 )
 
@@ -18,7 +18,7 @@ data class ExpenseTypeViewItem(
 @Composable
 fun ExpenseTypeBottomSheet(
     expenseTypes: List<ExpenseTypeViewItem>,
-    onExpenseTypeSelected: (String) -> Unit,
+    onExpenseTypeSelected: (Int) -> Unit,
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()

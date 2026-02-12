@@ -25,7 +25,7 @@ import androidx.room.Query
 
 data class Expense(
     @PrimaryKey(autoGenerate = true) val uid: Int,
-    @ColumnInfo val amount: Float,
+    @ColumnInfo val amount: Double,
     @ColumnInfo(name = "type_id") val type: Int,
     @ColumnInfo val notes: String?,
     @ColumnInfo val timestamp: Long

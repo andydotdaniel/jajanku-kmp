@@ -10,18 +10,14 @@ import com.andydotdaniel.jajanku.data.database.entities.Expense
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseDao
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseType
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
-import com.andydotdaniel.jajanku.data.database.entities.WeeklyBudget
-import com.andydotdaniel.jajanku.data.database.entities.WeeklyBudgetDao
 
 @Database(entities = [
-    WeeklyBudget::class,
     AccountedBudget::class,
     ExpenseType::class,
     Expense::class
 ], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun weeklyBudgetDao(): WeeklyBudgetDao
     abstract fun accountedBudgetDao(): AccountedBudgetDao
     abstract fun expenseTypeDao(): ExpenseTypeDao
     abstract fun expenseDao(): ExpenseDao

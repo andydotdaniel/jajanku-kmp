@@ -2,7 +2,7 @@ package com.andydotdaniel.jajanku.ui.pages.expense
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
+import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeViewItem
 import com.andydotdaniel.jajanku.utils.NumberFormatter
@@ -13,7 +13,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class AddExpenseScreenViewModel(expenseTypeRepository: ExpenseTypeRepository): ViewModel() {
+class ExpenseInputScreenViewModel(
+    expenseTypeRepository: ExpenseTypeRepository,
+    private val expenseRepository: ExpenseRepository
+): ViewModel() {
 
     private val maximumIncomeLength = 11
 
@@ -21,6 +24,7 @@ class AddExpenseScreenViewModel(expenseTypeRepository: ExpenseTypeRepository): V
         val expenseAmount: String = "",
         val notes: String = "",
         val expenseTypes: List<ExpenseTypeViewItem> = emptyList(),
+        val selectedExpenseTypeId: Int? = null,
         val isExpenseTypeSheetOpen: Boolean = false
     )
     private val _uiState = MutableStateFlow(UIState())
@@ -35,7 +39,7 @@ class AddExpenseScreenViewModel(expenseTypeRepository: ExpenseTypeRepository): V
             _uiState.value = _uiState.value.copy(
                 expenseTypes = expenseTypes.map { expenseType ->
                     ExpenseTypeViewItem(
-                        id = expenseType.uid.toString(),
+                        id = expenseType.uid,
                         title = expenseType.icon + " " + parseSerializableExpenseTypeTitle(expenseType.titles)
                     )
                 }
@@ -64,8 +68,20 @@ class AddExpenseScreenViewModel(expenseTypeRepository: ExpenseTypeRepository): V
         )
     }
 
-    fun onExpenseTypeSelected(id: String) {
-        TODO("implement onExpenseTypeSelected function")
+    fun onExpenseTypeSelected(id: Int) {
+        _uiState.value = uiState.value.copy(
+            selectedExpenseTypeId = id
+        )
+    }
+
+    fun onSaveButtonPressed() {
+        viewModelScope.launch {
+            expenseRepository.addExpense(
+                uiState.value.expenseAmount.toDouble(),
+                uiState.value.selectedExpenseTypeId!!,
+                uiState.value.notes
+            )
+        }
     }
 
 }

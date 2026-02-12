@@ -13,9 +13,10 @@ import com.andydotdaniel.jajanku.data.repository.AppExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.DatabaseInitializerRepository
+import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
-import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreenViewModel
+import com.andydotdaniel.jajanku.ui.pages.expense.ExpenseInputScreenViewModel
 import com.andydotdaniel.jajanku.ui.pages.home.HomeViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
@@ -35,7 +36,10 @@ internal fun repositoryModule(): Module = module {
 
     single<IncomeRepository> { AppIncomeRepository(get()) }
     single<BudgetPlanRepository> { AppBudgetPlanRepository(get()) }
-    single<ExpenseTypeRepository> { AppExpenseRepository(get()) }
+
+    single<AppExpenseRepository> { AppExpenseRepository(get(), get()) }
+    single<ExpenseTypeRepository> { get<AppExpenseRepository>() }
+    single<ExpenseRepository> { get<AppExpenseRepository>() }
 }
 internal fun databaseModule(): Module = module {
     single<DatabaseSeeder> { DatabaseSeeder(get()) }
@@ -66,5 +70,5 @@ val sharedModules = module {
         )
     }
     viewModelOf(::HomeViewModel)
-    viewModelOf(::AddExpenseScreenViewModel)
+    viewModelOf(::ExpenseInputScreenViewModel)
 }

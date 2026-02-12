@@ -2,32 +2,8 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cd947f9b5995fb6daedef9f164a1d341",
+    "identityHash": "1a5253b9ed0c69cf81839617c2e80163",
     "entities": [
-      {
-        "tableName": "weekly_budget",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day_of_the_week` INTEGER NOT NULL, `budget` REAL NOT NULL, PRIMARY KEY(`day_of_the_week`))",
-        "fields": [
-          {
-            "fieldPath": "dayOfTheWeek",
-            "columnName": "day_of_the_week",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "budget",
-            "columnName": "budget",
-            "affinity": "REAL",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "day_of_the_week"
-          ]
-        }
-      },
       {
         "tableName": "accounted_budget",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `budget` REAL NOT NULL, PRIMARY KEY(`date`))",
@@ -156,7 +132,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cd947f9b5995fb6daedef9f164a1d341')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1a5253b9ed0c69cf81839617c2e80163')"
     ]
   }
 }

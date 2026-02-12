@@ -54,7 +54,7 @@ class AddExpenseScreen: Screen, ModalScreen {
             color = AppColor.Black
         ) {
             val navigator = LocalNavigator.currentOrThrow
-            val viewModel = koinViewModel<AddExpenseScreenViewModel>()
+            val viewModel = koinViewModel<ExpenseInputScreenViewModel>()
             val uiState by viewModel.uiState.collectAsState()
 
             if (uiState.isExpenseTypeSheetOpen) {
@@ -104,6 +104,7 @@ class AddExpenseScreen: Screen, ModalScreen {
                     )
                     DropdownPicker(
                         modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+                        selectionText = if (uiState.selectedExpenseTypeId != null) uiState.expenseTypes.find { it.id == uiState.selectedExpenseTypeId }?.title else null,
                         placeholderText = "Select Category",
                         onClick = { viewModel.showExpenseTypeSheet(true) }
                     )
@@ -114,7 +115,13 @@ class AddExpenseScreen: Screen, ModalScreen {
                         onValueChange = { viewModel.updateNotes(it) },
                         singleLine = false
                     )
-                    PrimaryButton(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), text = "Save Expense", onClick = {})
+                    PrimaryButton(
+                        modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+                        text = "Save Expense",
+                        onClick = {
+                            viewModel.onSaveButtonPressed()
+                        }
+                    )
                 }
             }
         }

@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -34,6 +33,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun DropdownPicker(
     modifier: Modifier = Modifier,
+    selectionText: String? = null,
     placeholderText: String,
     onClick: () -> Unit
 ) {
@@ -50,12 +50,21 @@ fun DropdownPicker(
             modifier = Modifier.fillMaxWidth().padding(all = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
-                text = placeholderText,
-                fontWeight = FontWeight.SemiBold,
-                color = AppColor.PlaceholderGray,
-                fontSize = 21.sp
-            )
+            if (selectionText.isNullOrEmpty()) {
+                Text(
+                    text = placeholderText,
+                    fontWeight = FontWeight.SemiBold,
+                    color = AppColor.PlaceholderGray,
+                    fontSize = 21.sp
+                )
+            } else {
+                Text(
+                    text = selectionText,
+                    fontWeight = FontWeight.SemiBold,
+                    color = AppColor.White,
+                    fontSize = 21.sp
+                )
+            }
             Icon(
                 painter = painterResource(Res.drawable.chevron_down_24px),
                 contentDescription = stringResource(resource = Res.string.icon_chevron_down_24px),
