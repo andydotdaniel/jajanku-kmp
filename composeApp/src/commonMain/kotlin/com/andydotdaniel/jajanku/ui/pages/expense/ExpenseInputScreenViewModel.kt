@@ -8,10 +8,16 @@ import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeViewItem
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.NumberInputSanitizer
 import com.andydotdaniel.jajanku.utils.parseSerializableExpenseTypeTitle
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+
+sealed class ExpenseInputScreenEvent {
+    class ExpenseSaved() : ExpenseInputScreenEvent()
+}
 
 class ExpenseInputScreenViewModel(
     expenseTypeRepository: ExpenseTypeRepository,
@@ -37,6 +43,9 @@ class ExpenseInputScreenViewModel(
 
     private val _uiState = MutableStateFlow(UIState())
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
+
+    private val _uiEvents = Channel<ExpenseInputScreenEvent>()
+    val uiEvents = _uiEvents.receiveAsFlow()
 
     val numberFormatter = NumberFormatter()
     val numberInputSanitizer = NumberInputSanitizer(numberFormatter.decimalSeparator)
@@ -89,6 +98,8 @@ class ExpenseInputScreenViewModel(
                 uiState.value.selectedExpenseTypeId!!,
                 uiState.value.notes
             )
+
+            _uiEvents.trySend(ExpenseInputScreenEvent.ExpenseSaved())
         }
     }
 

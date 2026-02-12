@@ -17,6 +17,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -34,6 +35,8 @@ import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
 import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeBottomSheet
 import com.andydotdaniel.jajanku.ui.navigation.ModalScreen
+import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupEvent
+import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
@@ -56,6 +59,16 @@ class AddExpenseScreen: Screen, ModalScreen {
             val navigator = LocalNavigator.currentOrThrow
             val viewModel = koinViewModel<ExpenseInputScreenViewModel>()
             val uiState by viewModel.uiState.collectAsState()
+
+            LaunchedEffect(key1 = Unit) {
+                viewModel.uiEvents.collect { event ->
+                    when (event) {
+                        is ExpenseInputScreenEvent.ExpenseSaved -> {
+                            navigator.pop()
+                        }
+                    }
+                }
+            }
 
             if (uiState.isExpenseTypeSheetOpen) {
                 ExpenseTypeBottomSheet(
