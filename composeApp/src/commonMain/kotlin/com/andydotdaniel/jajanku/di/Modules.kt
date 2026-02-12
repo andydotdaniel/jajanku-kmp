@@ -4,6 +4,8 @@ import com.andydotdaniel.jajanku.Launcher
 import com.andydotdaniel.jajanku.data.database.AppDatabase
 import com.andydotdaniel.jajanku.data.database.AppDatabaseBuilder
 import com.andydotdaniel.jajanku.data.database.DatabaseSeeder
+import com.andydotdaniel.jajanku.data.database.entities.AccountedBudgetDao
+import com.andydotdaniel.jajanku.data.database.entities.ExpenseDao
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
 import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.AppDatabaseInitializerRepository
@@ -41,6 +43,8 @@ internal fun databaseModule(): Module = module {
 
     // Provide the YourDao instance by getting it from the AppDatabase
     single<ExpenseTypeDao> { get<AppDatabase>().expenseTypeDao() }
+    single<ExpenseDao> { get<AppDatabase>().expenseDao() }
+    single<AccountedBudgetDao> { get<AppDatabase>().accountedBudgetDao() }
 }
 
 val sharedModules = module {
