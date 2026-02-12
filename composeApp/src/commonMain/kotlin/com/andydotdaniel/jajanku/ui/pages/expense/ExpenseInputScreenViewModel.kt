@@ -26,7 +26,15 @@ class ExpenseInputScreenViewModel(
         val expenseTypes: List<ExpenseTypeViewItem> = emptyList(),
         val selectedExpenseTypeId: Int? = null,
         val isExpenseTypeSheetOpen: Boolean = false
-    )
+    ) {
+        val isSaveButtonEnabled: Boolean
+            get() {
+                val amountIsValid = (expenseAmount.toDoubleOrNull() ?: 0.0) > 0.0
+                val typeIsSelected = selectedExpenseTypeId != null
+                return amountIsValid && typeIsSelected
+            }
+    }
+
     private val _uiState = MutableStateFlow(UIState())
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
 

@@ -120,7 +120,8 @@ class AddExpenseScreen: Screen, ModalScreen {
                         text = "Save Expense",
                         onClick = {
                             viewModel.onSaveButtonPressed()
-                        }
+                        },
+                        enabled = uiState.isSaveButtonEnabled
                     )
                 }
             }
