@@ -39,7 +39,8 @@ fun PrimaryButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
-    icon: ButtonIcon? = null
+    icon: ButtonIcon? = null,
+    enabled: Boolean = true
 ) {
     val contentPadding: PaddingValues = if (icon != null) PaddingValues(start = 24.dp, top = 12.dp, bottom = 12.dp, end = 14.dp) else PaddingValues(vertical = 12.dp, horizontal = 24.dp)
 
@@ -52,15 +53,21 @@ fun PrimaryButton(
             containerColor = AppColor.PrimaryActive,
             disabledContainerColor = AppColor.BackgroundGray
         ),
+        enabled = enabled
     ) {
         Row() {
-            Text(text = text, fontWeight = FontWeight.SemiBold, color = AppColor.Black, fontSize = 18.sp)
+            Text(
+                text = text,
+                fontWeight = FontWeight.SemiBold,
+                color = if (enabled) AppColor.Black else AppColor.MutedGray,
+                fontSize = 18.sp
+            )
 
             if (icon != null) {
                 Icon(
                     painter = painterResource(icon.icon),
                     contentDescription = stringResource(resource = icon.contentDescription),
-                    tint = AppColor.Black,
+                    tint = if (enabled) AppColor.Black else AppColor.MutedGray,
                     modifier = Modifier.absoluteOffset(y = (-0.5).dp)
                 )
             }
@@ -86,6 +93,12 @@ fun PrimaryButtonPreview() {
                     icon = Res.drawable.chevron_right_24px,
                     contentDescription = Res.string.icon_chevron_right_24px
                 ))
+
+                PrimaryButton(onClick = {}, text = "Continue", enabled = false)
+                PrimaryButton(onClick = {}, text = "Continue", icon = ButtonIcon(
+                    icon = Res.drawable.chevron_right_24px,
+                    contentDescription = Res.string.icon_chevron_right_24px
+                ), enabled = false)
             }
         }
     }
