@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 interface IncomeRepository {
-    fun getIncome(): Flow<Double>
+    fun getIncome(): Flow<Double?>
     suspend fun updateIncome(value: Double)
 }
 
@@ -14,9 +14,9 @@ class AppIncomeRepository(
     private val dataStore: AppDataStore
 ): IncomeRepository {
 
-    override fun getIncome(): Flow<Double> {
+    override fun getIncome(): Flow<Double?> {
         return dataStore.preferences.data.map { preferences ->
-            preferences[SETTINGS_BUDGET_INCOME] ?: 0.0
+            preferences[SETTINGS_BUDGET_INCOME]
         }
     }
 

@@ -72,74 +72,7 @@ class Home: Screen {
             },
             containerColor = AppColor.Black,
             content = {
-                val data = listOf<ExpenseItem>(
-                    ExpenseItem(
-                        id = 1,
-                        icon = "\uD83C\uDF54",
-                        amount = "Rp 24103",
-                        category = "Food",
-                        time = "12:00",
-                    ),
-                    ExpenseItem(
-                        id = 2,
-                        icon = "\uD83C\uDF79",
-                        amount = "Rp 12103",
-                        category = "Drink",
-                        time = "11:00",
-                    ),
-                    ExpenseItem(
-                        id = 3,
-                        icon = "\uD83C\uDF79",
-                        amount = "Rp 73103",
-                        description = "Some long text about the item description that's long",
-                        category = "Drink",
-                        time = "09:00",
-                    ),
-                    ExpenseItem(
-                        id = 1,
-                        icon = "\uD83C\uDF54",
-                        amount = "Rp 24103",
-                        category = "Food",
-                        time = "12:00",
-                    ),
-                    ExpenseItem(
-                        id = 2,
-                        icon = "\uD83C\uDF79",
-                        amount = "Rp 12103",
-                        category = "Drink",
-                        time = "11:00",
-                    ),
-                    ExpenseItem(
-                        id = 3,
-                        icon = "\uD83C\uDF79",
-                        amount = "Rp 73103",
-                        description = "Some long text about the item description that's long",
-                        category = "Drink",
-                        time = "09:00",
-                    ),
-                    ExpenseItem(
-                        id = 1,
-                        icon = "\uD83C\uDF54",
-                        amount = "Rp 24103",
-                        category = "Food",
-                        time = "12:00",
-                    ),
-                    ExpenseItem(
-                        id = 2,
-                        icon = "\uD83C\uDF79",
-                        amount = "Rp 12103",
-                        category = "Drink",
-                        time = "11:00",
-                    ),
-                    ExpenseItem(
-                        id = 3,
-                        icon = "\uD83C\uDF79",
-                        amount = "Rp 73103",
-                        description = "Some long text about the item description that's long",
-                        category = "Drink",
-                        time = "09:00",
-                    )
-                )
+                val data = viewModel.uiState.value.expenseItems
 
                 LazyColumn(modifier = Modifier.platformSafeContentPadding().padding(top = 72.dp)) {
                     item {
@@ -147,7 +80,7 @@ class Home: Screen {
                         Text(uiState.remainingBudget, color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
 
                         val options = listOf("Monthly", "Weekly", "Daily")
-                        SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, 1) {
+                        SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, 0) {
 
                         }
                     }

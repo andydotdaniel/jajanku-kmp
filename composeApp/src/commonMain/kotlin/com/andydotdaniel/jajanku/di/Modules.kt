@@ -8,10 +8,12 @@ import com.andydotdaniel.jajanku.data.database.entities.AccountedBudgetDao
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseDao
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
 import com.andydotdaniel.jajanku.data.repository.AppBudgetPlanRepository
+import com.andydotdaniel.jajanku.data.repository.AppBudgetRepository
 import com.andydotdaniel.jajanku.data.repository.AppDatabaseInitializerRepository
 import com.andydotdaniel.jajanku.data.repository.AppExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.AppIncomeRepository
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
+import com.andydotdaniel.jajanku.data.repository.BudgetRepository
 import com.andydotdaniel.jajanku.data.repository.DatabaseInitializerRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
@@ -36,6 +38,7 @@ internal fun repositoryModule(): Module = module {
 
     single<IncomeRepository> { AppIncomeRepository(get()) }
     single<BudgetPlanRepository> { AppBudgetPlanRepository(get()) }
+    single<BudgetRepository> { AppBudgetRepository(get(), get()) }
 
     single<AppExpenseRepository> { AppExpenseRepository(get(), get()) }
     single<ExpenseTypeRepository> { get<AppExpenseRepository>() }

@@ -36,7 +36,9 @@ class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): View
     init {
         viewModelScope.launch {
             incomeRepository.getIncome().collect { value ->
-                updateIncome(value.toString())
+                if (value != null) {
+                    updateIncome(value.toString())
+                }
             }
         }
     }
