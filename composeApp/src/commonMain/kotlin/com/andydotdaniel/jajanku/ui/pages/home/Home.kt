@@ -72,7 +72,7 @@ class Home: Screen {
             },
             containerColor = AppColor.Black,
             content = {
-                val data = viewModel.uiState.value.expenseItems
+                val data = uiState.expenseItems
 
                 LazyColumn(modifier = Modifier.platformSafeContentPadding().padding(top = 72.dp)) {
                     item {

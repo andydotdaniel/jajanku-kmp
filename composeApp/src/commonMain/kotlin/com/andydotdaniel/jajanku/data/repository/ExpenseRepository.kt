@@ -25,7 +25,8 @@ class AppExpenseRepository(
     }
 
     override suspend fun getExpenses(): List<Expense> {
-        val startTime: Long = Clock.System.now().toEpochMilliseconds() - 1000 * 60 * 60 * 24 * 30 // Past month
+        val aMonthAgo = 1000L * 60 * 60 * 24 * 30
+        val startTime: Long = Clock.System.now().toEpochMilliseconds() - aMonthAgo // Past month
         val endTime: Long = Clock.System.now().toEpochMilliseconds()
 
         return expenseDao.findByTimeRange(startTime, endTime)
