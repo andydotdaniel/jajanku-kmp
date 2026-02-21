@@ -6,6 +6,7 @@ import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.domain.Budget
 import com.andydotdaniel.jajanku.domain.BudgetPlan
+import com.andydotdaniel.jajanku.ui.components.BudgetView
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,16 +17,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ViewModel() {
-
-    enum class BudgetView(val value : Int) {
-        MONTHLY(0),
-        WEEKLY(1),
-        DAILY(2);
-
-        companion object {
-            fun from(findValue: Int): BudgetView = entries.first { it.value == findValue }
-        }
-    }
 
     private val numberFormatter = NumberFormatter()
 

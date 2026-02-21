@@ -2,10 +2,13 @@ package com.andydotdaniel.jajanku.ui.pages.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andydotdaniel.jajanku.data.database.entities.Expense
 import com.andydotdaniel.jajanku.data.repository.BudgetRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseRange
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
+import com.andydotdaniel.jajanku.domain.Budget
+import com.andydotdaniel.jajanku.ui.components.BudgetView
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.utils.NumberFormatter
@@ -16,6 +19,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+private data class RemainingBudgetAmounts(
+    val remainingBudget: Double,
+    val needs: GaugeData,
+    val wants: GaugeData
+)
+
 class HomeViewModel(
     private val expenseTypeRepository: ExpenseTypeRepository,
     private val budgetRepository: BudgetRepository,
@@ -25,6 +34,7 @@ class HomeViewModel(
     data class UIState(
         val selectedBudgetView: Int = 0,
         val remainingBudget: String = "",
+        val budgetViewMenuOptions: List<String> = listOf("Monthly", "Weekly", "Daily"),
 
         val needs: GaugeData? = null,
         val wants: GaugeData? = null,
@@ -37,16 +47,55 @@ class HomeViewModel(
     val uiState: StateFlow<HomeViewModel.UIState> = _uiState.asStateFlow()
 
     fun selectBudgetView(index: Int) {
+        if (index == _uiState.value.selectedBudgetView) return
 
+        viewModelScope.launch {
+            val budget = budgetRepository.getBudget()
+
+            val expenses = when (index) {
+                0 -> expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
+                1 -> expenseRepository.getExpenses(ExpenseRange.PAST_WEEK)
+                2 -> expenseRepository.getExpenses(ExpenseRange.TODAY)
+                else -> {
+                    throw RuntimeException("Invalid budget view index selected")
+                }
+            }
+
+            val budgetView = BudgetView.from(index)
+            val budgetViewRatio = when (budgetView) {
+                BudgetView.MONTHLY -> 1.0
+                BudgetView.WEEKLY -> 4.0
+                BudgetView.DAILY -> 30.0
+            }
+
+            val remainingBudgetAmounts = calculateRemainingBudgetAmounts(budget, expenses, budgetViewRatio)
+            _uiState.value = _uiState.value.copy(
+                selectedBudgetView = index,
+                remainingBudget = numberFormatter.format(remainingBudgetAmounts.remainingBudget),
+                needs = remainingBudgetAmounts.needs,
+                wants = remainingBudgetAmounts.wants
+            )
+        }
+    }
+
+    private fun calculateRemainingBudgetAmounts(budget: Budget, expenses: List<Expense>, budgetViewRatio: Double): RemainingBudgetAmounts {
+        val remainingBudget = budget.spendingBudgetAmount - expenses.sumOf { it.amount }
+        val remainingNeedsBudget = remainingBudget * budget.budgetPlan.needs
+        val remainingWantsBudget = remainingBudget * budget.budgetPlan.wants
+
+        val needs = GaugeData("Needs", numberFormatter.format(remainingNeedsBudget / budgetViewRatio), (remainingNeedsBudget / remainingBudget).toFloat())
+        val wants = GaugeData("Wants", numberFormatter.format(remainingWantsBudget / budgetViewRatio), (remainingWantsBudget / remainingBudget).toFloat())
+
+        return RemainingBudgetAmounts(remainingBudget / budgetViewRatio, needs, wants)
     }
 
     init {
         viewModelScope.launch {
             val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
-            val pastMonthExpense = expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
+            val pastMonthExpenses = expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
 
             val budget = budgetRepository.getBudget()
-            val remainingBudget = budget.spendingBudgetAmount - pastMonthExpense.sumOf { it.amount }
+            val remainingBudget = budget.spendingBudgetAmount - pastMonthExpenses.sumOf { it.amount }
             val remainingNeedsBudget = remainingBudget * budget.budgetPlan.needs
             val remainingWantsBudget = remainingBudget * budget.budgetPlan.wants
 

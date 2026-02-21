@@ -80,9 +80,9 @@ class Home: Screen {
                         Text("Remaining Budget", color = AppColor.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                         Text(uiState.remainingBudget, color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
 
-                        val options = listOf("Monthly", "Weekly", "Daily")
-                        SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, 0) {
-
+                        val options = uiState.budgetViewMenuOptions
+                        SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, uiState.selectedBudgetView) {
+                            viewModel.selectBudgetView(it)
                         }
                     }
 
