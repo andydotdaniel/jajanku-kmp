@@ -7,7 +7,6 @@ import com.andydotdaniel.jajanku.data.repository.BudgetRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseRange
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
-import com.andydotdaniel.jajanku.domain.Budget
 import com.andydotdaniel.jajanku.ui.components.BudgetView
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.GaugeData
@@ -54,25 +53,7 @@ class HomeViewModel(
         if (index == _uiState.value.selectedBudgetView) return
 
         viewModelScope.launch {
-            val budget = budgetRepository.getBudget()
-
-            val expenses = when (index) {
-                0 -> expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
-                1 -> expenseRepository.getExpenses(ExpenseRange.PAST_WEEK)
-                2 -> expenseRepository.getExpenses(ExpenseRange.TODAY)
-                else -> {
-                    throw RuntimeException("Invalid budget view index selected")
-                }
-            }
-
-            val budgetView = BudgetView.from(index)
-            val budgetViewRatio = when (budgetView) {
-                BudgetView.MONTHLY -> 1.0
-                BudgetView.WEEKLY -> 4.0
-                BudgetView.DAILY -> 30.0
-            }
-
-            val remainingBudgetAmounts = calculateRemainingBudgetAmounts(budget, expenses, budgetViewRatio)
+            val remainingBudgetAmounts = calculateRemainingBudgetAmounts(index)
             _uiState.value = _uiState.value.copy(
                 selectedBudgetView = index,
                 remainingBudget = numberFormatter.format(remainingBudgetAmounts.remainingBudget),
@@ -82,7 +63,25 @@ class HomeViewModel(
         }
     }
 
-    private fun calculateRemainingBudgetAmounts(budget: Budget, expenses: List<Expense>, budgetViewRatio: Double): RemainingBudgetAmounts {
+    private suspend fun calculateRemainingBudgetAmounts(budgetViewIndex: Int): RemainingBudgetAmounts {
+        val budget = budgetRepository.getBudget()
+
+        val expenses = when (budgetViewIndex) {
+            0 -> expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
+            1 -> expenseRepository.getExpenses(ExpenseRange.PAST_WEEK)
+            2 -> expenseRepository.getExpenses(ExpenseRange.TODAY)
+            else -> {
+                throw RuntimeException("Invalid budget view index selected")
+            }
+        }
+
+        val budgetView = BudgetView.from(budgetViewIndex)
+        val budgetViewRatio = when (budgetView) {
+            BudgetView.MONTHLY -> 1.0
+            BudgetView.WEEKLY -> 4.0
+            BudgetView.DAILY -> 30.0
+        }
+
         val remainingBudget = budget.spendingBudgetAmount - expenses.sumOf { it.amount }
         val remainingNeedsBudget = remainingBudget * budget.budgetPlan.needs
         val remainingWantsBudget = remainingBudget * budget.budgetPlan.wants
@@ -139,7 +138,14 @@ class HomeViewModel(
             val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
             val expenseItems = formatExpenses(todayExpenses)
 
-            _uiState.value = uiState.value.copy(expenseItems = expenseItems)
+            val remainingBudgetAmounts = calculateRemainingBudgetAmounts(uiState.value.selectedBudgetView)
+
+            _uiState.value = uiState.value.copy(
+                remainingBudget = numberFormatter.format(remainingBudgetAmounts.remainingBudget),
+                needs = remainingBudgetAmounts.needs,
+                wants = remainingBudgetAmounts.wants,
+                expenseItems = expenseItems
+            )
         }
 
     }
