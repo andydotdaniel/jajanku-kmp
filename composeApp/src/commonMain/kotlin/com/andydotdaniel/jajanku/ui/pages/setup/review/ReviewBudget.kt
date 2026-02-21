@@ -92,7 +92,7 @@ fun ReviewBudgetPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            ReviewBudget(12000.0, BudgetPlan("0", 50, 30, 20)).Content()
+            ReviewBudget(12000.0, BudgetPlan("0", 0.50F, 0.30F, 0.20F)).Content()
         }
     }
 }

@@ -53,9 +53,9 @@ class BudgetPlanSetupViewModel(
             val budgetParts = defaultBudgetPlans[selectedBudgetPlan.toInt()].name.split(" / ")
             val budgetPlan = BudgetPlan(
                 selectedBudgetPlan,
-                budgetParts[0].toInt(),
-                budgetParts[1].toInt(),
-                budgetParts[2].toInt()
+                budgetParts[0].toFloat() / 100,
+                budgetParts[1].toFloat() / 100,
+                budgetParts[2].toFloat() / 100
             )
 
             repository.saveBudgetPlan(budgetPlan)

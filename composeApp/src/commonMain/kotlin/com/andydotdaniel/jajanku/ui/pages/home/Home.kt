@@ -29,6 +29,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
+import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreen
@@ -82,6 +83,15 @@ class Home: Screen {
                         val options = listOf("Monthly", "Weekly", "Daily")
                         SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, 0) {
 
+                        }
+                    }
+
+                    if (uiState.needs != null && uiState.wants != null) {
+                        item {
+                            Spacer(modifier = Modifier.height(24.dp))
+
+                            val gaugeData = listOf(uiState.needs!!, uiState.wants!!)
+                            GroupedGauge(gaugeData)
                         }
                     }
 

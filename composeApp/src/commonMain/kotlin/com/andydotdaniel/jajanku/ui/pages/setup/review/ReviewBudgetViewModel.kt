@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
+import com.andydotdaniel.jajanku.domain.Budget
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.utils.NumberFormatter
@@ -36,9 +37,11 @@ class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ViewModel()
         val wants: GaugeData
     )
 
-    val savings = income * budgetPlan.savings / 100
-    val wants = income * budgetPlan.wants / 100
-    val needs = income * budgetPlan.needs / 100
+    val budget = Budget(income, budgetPlan)
+    val savings = budget.savingsAmount
+    val wants = budget.wantsAmount
+
+    val needs = budget.needsAmount
     val spendingBudget = wants + needs
     val needsGaugeData = GaugeData("Needs", numberFormatter.format(needs), (needs / spendingBudget).toFloat())
     val wantsGaugeData = GaugeData("Wants", numberFormatter.format(wants), (wants / spendingBudget).toFloat())

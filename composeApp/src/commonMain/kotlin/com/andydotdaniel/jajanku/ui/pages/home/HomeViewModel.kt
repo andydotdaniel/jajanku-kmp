@@ -7,6 +7,7 @@ import com.andydotdaniel.jajanku.data.repository.ExpenseRange
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
+import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.Time
 import com.andydotdaniel.jajanku.utils.parseSerializableExpenseTypeTitle
@@ -24,8 +25,13 @@ class HomeViewModel(
     data class UIState(
         val selectedBudgetView: Int = 0,
         val remainingBudget: String = "",
+
+        val needs: GaugeData? = null,
+        val wants: GaugeData? = null,
+
         val expenseItems: List<ExpenseItem> = emptyList()
     )
+
     private val numberFormatter = NumberFormatter()
     private val _uiState = MutableStateFlow(UIState())
     val uiState: StateFlow<HomeViewModel.UIState> = _uiState.asStateFlow()
@@ -36,14 +42,21 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            val expenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
-            val budget = budgetRepository.getBudget()
-            val remainingBudget = budget.income - budget.budgetPlan.savings
-            val formattedRemainingBudget = numberFormatter.format(remainingBudget)
+            val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
+            val pastMonthExpense = expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
 
+            val budget = budgetRepository.getBudget()
+            val remainingBudget = budget.spendingBudgetAmount - pastMonthExpense.sumOf { it.amount }
+            val remainingNeedsBudget = remainingBudget * budget.budgetPlan.needs
+            val remainingWantsBudget = remainingBudget * budget.budgetPlan.wants
+
+            val needs = GaugeData("Needs", numberFormatter.format(remainingNeedsBudget), (remainingNeedsBudget / remainingBudget).toFloat())
+            val wants = GaugeData("Wants", numberFormatter.format(remainingWantsBudget), (remainingWantsBudget / remainingBudget).toFloat())
+
+            val formattedRemainingBudget = numberFormatter.format(remainingBudget)
             val expenseTypes = expenseTypeRepository.getExpenseTypes()
 
-            val expenseItems = expenses.map {
+            val expenseItems = todayExpenses.map {
                 val expenseType = expenseTypes.find { expenseType -> expenseType.uid == it.uid }
 
                 ExpenseItem(
@@ -57,7 +70,9 @@ class HomeViewModel(
 
             _uiState.value = uiState.value.copy(
                 remainingBudget = formattedRemainingBudget,
-                expenseItems = expenseItems
+                expenseItems = expenseItems,
+                needs = needs,
+                wants = wants
             )
         }
 

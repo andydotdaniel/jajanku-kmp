@@ -21,7 +21,7 @@ class AppBudgetPlanRepository(
 
     fun decodeBudgetPlan(string: String): BudgetPlan {
         val parts = string.split("/")
-        return BudgetPlan(parts[0], parts[1].toInt(), parts[2].toInt(), parts[3].toInt())
+        return BudgetPlan(parts[0], parts[1].toFloat(), parts[2].toFloat(), parts[3].toFloat())
     }
 
     override fun getSavedBudgetPlan(): Flow<BudgetPlan?> {
