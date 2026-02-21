@@ -3,6 +3,7 @@ package com.andydotdaniel.jajanku.ui.pages.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andydotdaniel.jajanku.data.repository.BudgetRepository
+import com.andydotdaniel.jajanku.data.repository.ExpenseRange
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
@@ -35,7 +36,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            val expenses = expenseRepository.getExpenses()
+            val expenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
             val budget = budgetRepository.getBudget()
             val remainingBudget = budget.income - budget.budgetPlan.savings
             val formattedRemainingBudget = numberFormatter.format(remainingBudget)
