@@ -83,14 +83,15 @@ fun ExpenseListItem(
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).padding(top = 4.dp)
             ) {
                 Text(text = expense.amount, color = AppColor.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = expense.category, color = Color.LightGray, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                expense.description?.let {
+
+                if (!expense.description.isNullOrBlank()) {
                     Text(
-                        text = it,
+                        text = expense.description,
                         color = AppColor.White,
                         fontSize = 16.sp,
                         modifier = Modifier.padding(top = 8.dp) // Align with text above
