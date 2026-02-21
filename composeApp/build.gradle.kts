@@ -48,6 +48,9 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
 
+            // Voyager-Koin integration
+            implementation("cafe.adriel.voyager:voyager-koin:${voyagerVersion}")
+
             // Datastore
             implementation("androidx.datastore:datastore:1.2.0")
             implementation("androidx.datastore:datastore-preferences:1.2.0")

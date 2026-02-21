@@ -73,5 +73,6 @@ val sharedModules = module {
         )
     }
     viewModelOf(::HomeViewModel)
-    viewModelOf(::ExpenseInputScreenViewModel)
+
+    factory { ExpenseInputScreenViewModel(get(), get()) }
 }

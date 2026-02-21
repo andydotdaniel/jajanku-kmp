@@ -1,7 +1,7 @@
 package com.andydotdaniel.jajanku.ui.pages.expense
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeViewItem
@@ -22,7 +22,7 @@ sealed class ExpenseInputScreenEvent {
 class ExpenseInputScreenViewModel(
     expenseTypeRepository: ExpenseTypeRepository,
     private val expenseRepository: ExpenseRepository
-): ViewModel() {
+): ScreenModel {
 
     private val maximumIncomeLength = 11
 
@@ -51,7 +51,7 @@ class ExpenseInputScreenViewModel(
     val numberInputSanitizer = NumberInputSanitizer(numberFormatter.decimalSeparator)
 
     init {
-        viewModelScope.launch {
+        screenModelScope.launch {
             val expenseTypes = expenseTypeRepository.getExpenseTypes()
             _uiState.value = _uiState.value.copy(
                 expenseTypes = expenseTypes.map { expenseType ->
@@ -92,7 +92,7 @@ class ExpenseInputScreenViewModel(
     }
 
     fun onSaveButtonPressed() {
-        viewModelScope.launch {
+        screenModelScope.launch {
             expenseRepository.addExpense(
                 uiState.value.expenseAmount.toDouble(),
                 uiState.value.selectedExpenseTypeId!!,
