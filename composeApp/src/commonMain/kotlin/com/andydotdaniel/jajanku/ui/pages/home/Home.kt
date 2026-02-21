@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.andydotdaniel.jajanku.ui.components.EmptyNotice
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
@@ -101,16 +102,22 @@ class Home: Screen {
                         Spacer(modifier = Modifier.height(24.dp))
                     }
 
-                    items(count = data.size) { index ->
-                        val item = data[index]
+                    if (data.isNotEmpty()) {
+                        items(count = data.size) { index ->
+                            val item = data[index]
 
-                        ExpenseListItem(item, false) {}
-                        if (index < data.size - 1) {
-                            Spacer(modifier = Modifier.height(16.dp))
-                            HorizontalDivider(thickness = 1.dp, color = AppColor.BackgroundGray)
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }  else {
-                            Spacer(modifier = Modifier.height(80.dp))
+                            ExpenseListItem(item, false) {}
+                            if (index < data.size - 1) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                HorizontalDivider(thickness = 1.dp, color = AppColor.BackgroundGray)
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }  else {
+                                Spacer(modifier = Modifier.height(80.dp))
+                            }
+                        }
+                    } else {
+                        item {
+                            EmptyNotice("No expenses have been recorded yet.")
                         }
                     }
                 }
