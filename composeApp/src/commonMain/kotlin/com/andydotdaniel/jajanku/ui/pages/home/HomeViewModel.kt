@@ -95,7 +95,7 @@ class HomeViewModel(
     private suspend fun formatExpenses(expenses: List<Expense>): List<ExpenseItem> {
         val expenseTypes = expenseTypeRepository.getExpenseTypes()
         return expenses.map {
-            val expenseType = expenseTypes.find { expenseType -> expenseType.uid == it.uid }
+            val expenseType = expenseTypes.find { expenseType -> expenseType.uid == it.type }
 
             ExpenseItem(
                 id = it.uid,
