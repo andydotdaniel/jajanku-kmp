@@ -1,18 +1,19 @@
 package com.andydotdaniel.jajanku.utils
 
-import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Instant
 
 
 object Time {
 
     fun formatTimestamp(timestamp: Long): String {
-        val duration = timestamp.milliseconds
+        val instant = Instant.fromEpochMilliseconds(timestamp)
+        val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
 
-        return duration.toComponents { hour, minutes ->
-            val paddedHour = hour.toString().padStart(2, '0')
-            val paddedMinutes = minutes.toString().padStart(2, '0')
-            "${paddedHour}:${paddedMinutes}"
-        }
+        val paddedHour = localDateTime.hour.toString().padStart(2, '0')
+        val paddedMinutes = localDateTime.minute.toString().padStart(2, '0')
+        return "${paddedHour}:${paddedMinutes}"
     }
 
 }
