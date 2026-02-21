@@ -5,8 +5,7 @@ import com.andydotdaniel.jajanku.data.database.entities.ExpenseDao
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseType
 import com.andydotdaniel.jajanku.data.database.entities.ExpenseTypeDao
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import kotlin.time.Instant
+import kotlinx.datetime.offsetAt
 import kotlin.time.Clock
 
 interface ExpenseTypeRepository {
@@ -34,19 +33,21 @@ class AppExpenseRepository(
     }
 
     override suspend fun getExpenses(timeRange: ExpenseRange): List<Expense> {
-        val now = Clock.System.now().toEpochMilliseconds()
+        val now = Clock.System.now()
+        val nowMs = now.toEpochMilliseconds()
 
-        // TODO: Adjust for timezone
-        val offset: Long = when (timeRange) {
-            ExpenseRange.TODAY -> { now.mod(86400000L) }
+        val timeRangeOffset: Long = when (timeRange) {
+            ExpenseRange.TODAY -> { nowMs.mod(86400000L) }
 
             ExpenseRange.PAST_WEEK -> 1000L * 60 * 60 * 24 * 7
 
             ExpenseRange.PAST_MONTH -> 1000L * 60 * 60 * 24 * 30
         }
 
-        val startTime: Long = now - offset
-        val endTime: Long = now
+        val utcOffset = (TimeZone.currentSystemDefault().offsetAt(now).totalSeconds * 1000).toLong()
+
+        val startTime: Long = nowMs - timeRangeOffset - utcOffset
+        val endTime: Long = nowMs
 
         return expenseDao.findByTimeRange(startTime, endTime)
     }
