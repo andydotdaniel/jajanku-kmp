@@ -35,8 +35,6 @@ import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
 import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeBottomSheet
 import com.andydotdaniel.jajanku.ui.navigation.ModalScreen
-import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupEvent
-import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
@@ -48,7 +46,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-class AddExpenseScreen: Screen, ModalScreen {
+class AddExpenseScreen(private val onExpenseSavedCallback: () -> Unit): Screen, ModalScreen {
 
     @Composable
     override fun Content() {
@@ -65,6 +63,7 @@ class AddExpenseScreen: Screen, ModalScreen {
                     when (event) {
                         is ExpenseInputScreenEvent.ExpenseSaved -> {
                             navigator.pop()
+                            onExpenseSavedCallback()
                         }
                     }
                 }
@@ -146,5 +145,5 @@ class AddExpenseScreen: Screen, ModalScreen {
 @Preview
 @Composable
 fun Preview_AddExpenseScreen() {
-    AddExpenseScreen().Content()
+    AddExpenseScreen({}).Content()
 }

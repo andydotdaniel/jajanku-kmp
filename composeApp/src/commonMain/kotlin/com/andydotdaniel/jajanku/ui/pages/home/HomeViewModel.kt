@@ -11,9 +11,11 @@ import com.andydotdaniel.jajanku.domain.Budget
 import com.andydotdaniel.jajanku.ui.components.BudgetView
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.GaugeData
+import com.andydotdaniel.jajanku.ui.pages.expense.ExpenseInputScreenEvent
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.Time
 import com.andydotdaniel.jajanku.utils.parseSerializableExpenseTypeTitle
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,6 +47,8 @@ class HomeViewModel(
     private val numberFormatter = NumberFormatter()
     private val _uiState = MutableStateFlow(UIState())
     val uiState: StateFlow<HomeViewModel.UIState> = _uiState.asStateFlow()
+
+    val uiEvents = Channel<ExpenseInputScreenEvent>()
 
     fun selectBudgetView(index: Int) {
         if (index == _uiState.value.selectedBudgetView) return
@@ -89,6 +93,21 @@ class HomeViewModel(
         return RemainingBudgetAmounts(remainingBudget / budgetViewRatio, needs, wants)
     }
 
+    private suspend fun formatExpenses(expenses: List<Expense>): List<ExpenseItem> {
+        val expenseTypes = expenseTypeRepository.getExpenseTypes()
+        return expenses.map {
+            val expenseType = expenseTypes.find { expenseType -> expenseType.uid == it.uid }
+
+            ExpenseItem(
+                id = it.uid,
+                icon = expenseType?.icon ?: "",
+                category = if (expenseType != null) parseSerializableExpenseTypeTitle(expenseType.titles) else "",
+                amount = numberFormatter.format(it.amount),
+                time = Time.formatTimestamp(it.timestamp)
+            )
+        }
+    }
+
     init {
         viewModelScope.launch {
             val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
@@ -103,19 +122,7 @@ class HomeViewModel(
             val wants = GaugeData("Wants", numberFormatter.format(remainingWantsBudget), (remainingWantsBudget / remainingBudget).toFloat())
 
             val formattedRemainingBudget = numberFormatter.format(remainingBudget)
-            val expenseTypes = expenseTypeRepository.getExpenseTypes()
-
-            val expenseItems = todayExpenses.map {
-                val expenseType = expenseTypes.find { expenseType -> expenseType.uid == it.uid }
-
-                ExpenseItem(
-                    id = it.uid,
-                    icon = expenseType?.icon ?: "",
-                    category = if (expenseType != null) parseSerializableExpenseTypeTitle(expenseType.titles) else "",
-                    amount = numberFormatter.format(it.amount),
-                    time = Time.formatTimestamp(it.timestamp)
-                )
-            }
+            val expenseItems = formatExpenses(todayExpenses)
 
             _uiState.value = uiState.value.copy(
                 remainingBudget = formattedRemainingBudget,
@@ -127,5 +134,14 @@ class HomeViewModel(
 
     }
 
+    fun refreshExpenses() {
+        viewModelScope.launch {
+            val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
+            val expenseItems = formatExpenses(todayExpenses)
+
+            _uiState.value = uiState.value.copy(expenseItems = expenseItems)
+        }
+
+    }
 
 }
