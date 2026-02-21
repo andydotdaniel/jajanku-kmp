@@ -33,7 +33,7 @@ data class Expense(
 
 @Dao
 interface ExpenseDao {
-    @Query("SELECT * FROM expense WHERE timestamp >= :startTime AND timestamp < :endTime")
+    @Query("SELECT * FROM expense WHERE timestamp >= :startTime AND timestamp < :endTime ORDER BY timestamp DESC")
     suspend fun findByTimeRange(startTime: Long, endTime: Long): List<Expense>
 
     @Query("DELETE FROM expense WHERE uid = :id")

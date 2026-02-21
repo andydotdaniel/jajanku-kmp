@@ -102,7 +102,8 @@ class HomeViewModel(
                 icon = expenseType?.icon ?: "",
                 category = if (expenseType != null) parseSerializableExpenseTypeTitle(expenseType.titles) else "",
                 amount = numberFormatter.format(it.amount),
-                time = Time.formatTimestamp(it.timestamp)
+                time = Time.formatTimestamp(it.timestamp),
+                description = it.notes
             )
         }
     }
