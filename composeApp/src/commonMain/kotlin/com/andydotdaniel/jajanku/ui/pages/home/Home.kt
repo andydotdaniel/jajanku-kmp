@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.EmptyNotice
@@ -43,13 +44,12 @@ import jajanku.composeapp.generated.resources.settings_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
 
 class Home: Screen {
 
     @Composable
     override fun Content() {
-        val viewModel = koinViewModel<HomeViewModel>()
+        val viewModel = koinScreenModel<HomeViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
         val navigator = LocalNavigator.currentOrThrow

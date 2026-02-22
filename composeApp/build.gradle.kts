@@ -40,7 +40,6 @@ kotlin {
 
             // Koin Dependency Injection
             implementation("io.insert-koin:koin-compose:${koinVersion}")
-            implementation("io.insert-koin:koin-compose-viewmodel:${koinVersion}")
 
             // Voyager Navigation
             implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")

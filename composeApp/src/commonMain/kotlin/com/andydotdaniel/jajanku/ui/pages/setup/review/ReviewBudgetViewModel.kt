@@ -1,9 +1,6 @@
 package com.andydotdaniel.jajanku.ui.pages.setup.review
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
-import com.andydotdaniel.jajanku.data.repository.IncomeRepository
+import cafe.adriel.voyager.core.model.ScreenModel
 import com.andydotdaniel.jajanku.domain.Budget
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.ui.components.BudgetView
@@ -12,11 +9,8 @@ import com.andydotdaniel.jajanku.utils.NumberFormatter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
-class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ViewModel() {
+class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel {
 
     private val numberFormatter = NumberFormatter()
 

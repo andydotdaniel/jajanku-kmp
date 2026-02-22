@@ -24,8 +24,6 @@ import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
 import com.andydotdaniel.jajanku.ui.pages.setup.review.ReviewBudgetViewModel
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.viewModel
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 // DataStore here refers our key-pair data store for storing user defaults and preferences
@@ -64,15 +62,14 @@ val sharedModules = module {
 
     single<Launcher> { Launcher(get(), get()) }
 
-    viewModelOf(::IncomeSetupViewModel)
-    viewModelOf(::BudgetPlanSetupViewModel)
-    viewModel { params ->
+    factory { IncomeSetupViewModel(get()) }
+    factory { BudgetPlanSetupViewModel(get()) }
+    factory { params ->
         ReviewBudgetViewModel(
             income = params.get(),
             budgetPlan = params.get()
         )
     }
-    viewModelOf(::HomeViewModel)
-
+    factory { HomeViewModel(get(), get(), get()) }
     factory { ExpenseInputScreenViewModel(get(), get()) }
 }

@@ -1,7 +1,7 @@
 package com.andydotdaniel.jajanku.ui.pages.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.andydotdaniel.jajanku.data.database.entities.Expense
 import com.andydotdaniel.jajanku.data.repository.BudgetRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseRange
@@ -30,7 +30,7 @@ class HomeViewModel(
     private val expenseTypeRepository: ExpenseTypeRepository,
     private val budgetRepository: BudgetRepository,
     private val expenseRepository: ExpenseRepository
-): ViewModel() {
+): ScreenModel {
 
     data class UIState(
         val selectedBudgetView: Int = 0,
@@ -52,7 +52,7 @@ class HomeViewModel(
     fun selectBudgetView(index: Int) {
         if (index == _uiState.value.selectedBudgetView) return
 
-        viewModelScope.launch {
+        screenModelScope.launch {
             val remainingBudgetAmounts = calculateRemainingBudgetAmounts(index)
             _uiState.value = _uiState.value.copy(
                 selectedBudgetView = index,
@@ -109,7 +109,7 @@ class HomeViewModel(
     }
 
     init {
-        viewModelScope.launch {
+        screenModelScope.launch {
             val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
             val pastMonthExpenses = expenseRepository.getExpenses(ExpenseRange.PAST_MONTH)
 
@@ -135,7 +135,7 @@ class HomeViewModel(
     }
 
     fun refreshExpenses() {
-        viewModelScope.launch {
+        screenModelScope.launch {
             val todayExpenses = expenseRepository.getExpenses(ExpenseRange.TODAY)
             val expenseItems = formatExpenses(todayExpenses)
 

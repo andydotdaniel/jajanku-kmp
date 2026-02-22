@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
@@ -39,7 +40,7 @@ import org.koin.compose.koinInject
 class IncomeSetup: Screen {
     @Composable
     override fun Content() {
-        val viewModel = koinInject<IncomeSetupViewModel>()
+        val viewModel = koinScreenModel<IncomeSetupViewModel>()
         val navigator = LocalNavigator.currentOrThrow
         LaunchedEffect(key1 = Unit) {
             viewModel.uiEvents.collect { event ->

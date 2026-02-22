@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinScreenModel
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
@@ -28,13 +29,12 @@ import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPlan): Screen {
     @Composable
     override fun Content() {
-        val viewModel = koinViewModel<ReviewBudgetViewModel>(
+        val viewModel = koinScreenModel<ReviewBudgetViewModel>(
             parameters = { parametersOf(income, budgetPlan) }
         )
         val uiState by viewModel.uiState.collectAsState()

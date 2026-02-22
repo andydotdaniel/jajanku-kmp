@@ -1,7 +1,7 @@
 package com.andydotdaniel.jajanku.ui.pages.setup.income
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.NumberInputSanitizer
@@ -16,7 +16,7 @@ sealed class IncomeSetupEvent {
     class NavigateToBudgetPlanSetup(val income: Double) : IncomeSetupEvent()
 }
 
-class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): ViewModel() {
+class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): ScreenModel {
 
     private val maximumIncomeLength = 11
 
@@ -34,7 +34,7 @@ class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): View
     val numberInputSanitizer = NumberInputSanitizer(numberFormatter.decimalSeparator)
 
     init {
-        viewModelScope.launch {
+        screenModelScope.launch {
             incomeRepository.getIncome().collect { value ->
                 if (value != null) {
                     updateIncome(value.toString())
@@ -55,7 +55,7 @@ class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): View
     }
 
     fun submit() {
-        viewModelScope.launch {
+        screenModelScope.launch {
             val doubleIncome = uiState.value.income.toDouble()
             incomeRepository.updateIncome(doubleIncome)
             _uiEvents.trySend(IncomeSetupEvent.NavigateToBudgetPlanSetup(doubleIncome))

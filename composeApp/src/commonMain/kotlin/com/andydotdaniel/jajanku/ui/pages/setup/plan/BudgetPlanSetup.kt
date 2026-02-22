@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
@@ -32,14 +33,13 @@ import jajanku.composeapp.generated.resources.Res
 import jajanku.composeapp.generated.resources.chevron_right_24px
 import jajanku.composeapp.generated.resources.icon_chevron_right_24px
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
 
 class BudgetPlanSetup(private val income: Double): Screen {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = koinViewModel<BudgetPlanSetupViewModel>()
+        val viewModel = koinScreenModel<BudgetPlanSetupViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
         LaunchedEffect(key1 = Unit) {

@@ -1,7 +1,7 @@
 package com.andydotdaniel.jajanku.ui.pages.setup.plan
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import kotlinx.coroutines.channels.Channel
@@ -19,7 +19,7 @@ sealed class BudgetPlanSetupEvent {
 
 class BudgetPlanSetupViewModel(
     private val repository: BudgetPlanRepository
-): ViewModel() {
+): ScreenModel {
 
     val defaultBudgetPlans = listOf<BudgetPlanViewData>(
         BudgetPlanViewData("50 / 30 / 20", "The most popular budgeting formula"),
@@ -38,7 +38,7 @@ class BudgetPlanSetupViewModel(
     val uiEvents = _uiEvents.receiveAsFlow()
 
     init {
-        viewModelScope.launch {
+        screenModelScope.launch {
             repository.getSavedBudgetPlan().collect { plan ->
                 if (plan != null) {
                     _uiState.value = _uiState.value.copy(selectedBudgetPlan = plan.id)
@@ -48,7 +48,7 @@ class BudgetPlanSetupViewModel(
     }
 
     fun submit() {
-        viewModelScope.launch {
+        screenModelScope.launch {
             val selectedBudgetPlan = _uiState.value.selectedBudgetPlan
             val budgetParts = defaultBudgetPlans[selectedBudgetPlan.toInt()].name.split(" / ")
             val budgetPlan = BudgetPlan(
