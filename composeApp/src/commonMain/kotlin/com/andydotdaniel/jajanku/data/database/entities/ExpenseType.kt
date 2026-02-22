@@ -24,5 +24,5 @@ interface ExpenseTypeDao {
     suspend fun findById(id: Int): ExpenseType?
 
     @Insert
-    fun insertAll(vararg expenseType: ExpenseType)
+    suspend fun insertAll(vararg expenseType: ExpenseType)
 }

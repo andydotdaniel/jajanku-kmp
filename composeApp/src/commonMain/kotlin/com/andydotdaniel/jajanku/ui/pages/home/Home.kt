@@ -33,7 +33,7 @@ import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
-import com.andydotdaniel.jajanku.ui.pages.expense.AddExpenseScreen
+import com.andydotdaniel.jajanku.ui.pages.expense.ExpenseInputScreen
 import com.andydotdaniel.jajanku.ui.pages.settings.SettingsScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
@@ -125,7 +125,7 @@ class Home: Screen {
 
             floatingActionButton = {
                 PrimaryButton(text = "Add Expense", onClick = {
-                    navigator.push(AddExpenseScreen(
+                    navigator.push(ExpenseInputScreen(
                         onExpenseSavedCallback = {
                             viewModel.refreshExpenses()
                         }

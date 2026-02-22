@@ -45,9 +45,8 @@ import jajanku.composeapp.generated.resources.icon_close_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
 
-class AddExpenseScreen(private val onExpenseSavedCallback: () -> Unit): Screen, ModalScreen {
+class ExpenseInputScreen(private val onExpenseSavedCallback: () -> Unit): Screen, ModalScreen {
 
     @Composable
     override fun Content() {
@@ -146,5 +145,5 @@ class AddExpenseScreen(private val onExpenseSavedCallback: () -> Unit): Screen, 
 @Preview
 @Composable
 fun Preview_AddExpenseScreen() {
-    AddExpenseScreen({}).Content()
+    ExpenseInputScreen({}).Content()
 }

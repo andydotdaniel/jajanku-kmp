@@ -17,11 +17,11 @@ data class AccountedBudget(
 @Dao
 interface AccountedBudgetDao {
     @Query("SELECT * FROM accounted_budget WHERE date >= :startDate AND date < :endDate")
-    fun findByDateRange(startDate: String, endDate: String): List<AccountedBudget>
+    suspend fun findByDateRange(startDate: String, endDate: String): List<AccountedBudget>
 
     @Insert
-    fun insertAll(vararg accountedBudgets: AccountedBudget)
+    suspend fun insertAll(vararg accountedBudgets: AccountedBudget)
 
     @Update
-    fun updateAccountedBudgets(vararg accountedBudgets: AccountedBudget)
+    suspend fun updateAccountedBudgets(vararg accountedBudgets: AccountedBudget)
 }
