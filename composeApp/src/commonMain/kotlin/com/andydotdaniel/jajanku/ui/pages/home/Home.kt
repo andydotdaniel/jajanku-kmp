@@ -79,7 +79,7 @@ class Home: Screen {
                 LazyColumn(modifier = Modifier.platformSafeContentPadding().padding(top = 72.dp)) {
                     item {
                         Text("Remaining Budget", color = AppColor.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                        Text(uiState.remainingBudget, color = AppColor.White, fontSize = 48.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
+                        Text(uiState.remainingBudget, color = AppColor.White, fontSize = 36.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
 
                         val options = uiState.budgetViewMenuOptions
                         SegmentedPillControl(modifier = Modifier.padding(top = 24.dp), options = options, uiState.selectedBudgetView) {

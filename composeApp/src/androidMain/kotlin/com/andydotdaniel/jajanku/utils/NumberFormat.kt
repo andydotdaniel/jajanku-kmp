@@ -4,9 +4,9 @@ import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.Locale
 
-actual class NumberFormatter {
+actual class NumberFormatter actual constructor(decimalPlaces: Int) {
     private val decimalFormat = NumberFormat.getCurrencyInstance().apply {
-        maximumFractionDigits = 2
+        maximumFractionDigits = decimalPlaces
         minimumFractionDigits = 0
 
         isGroupingUsed = true
