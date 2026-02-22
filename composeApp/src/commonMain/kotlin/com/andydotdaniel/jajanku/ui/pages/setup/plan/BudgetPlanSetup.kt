@@ -23,6 +23,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextCard
@@ -39,7 +40,7 @@ class BudgetPlanSetup(private val income: Double): Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = koinScreenModel<BudgetPlanSetupViewModel>()
+        val viewModel = getScreenModel<BudgetPlanSetupViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
         LaunchedEffect(key1 = Unit) {

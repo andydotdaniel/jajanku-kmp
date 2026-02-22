@@ -28,9 +28,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.ui.components.DropdownPicker
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
@@ -55,7 +55,7 @@ class ExpenseInputScreen(private val onExpenseSavedCallback: () -> Unit): Screen
             color = AppColor.Black
         ) {
             val navigator = LocalNavigator.currentOrThrow
-            val viewModel = koinScreenModel<ExpenseInputScreenViewModel>()
+            val viewModel = getScreenModel<ExpenseInputScreenViewModel>()
             val uiState by viewModel.uiState.collectAsState()
 
             LaunchedEffect(key1 = Unit) {

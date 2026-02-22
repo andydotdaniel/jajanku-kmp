@@ -1,0 +1,34 @@
+package com.andydotdaniel.jajanku.di
+
+import androidx.compose.runtime.Composable
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.rememberNavigatorScreenModel
+import cafe.adriel.voyager.core.model.rememberScreenModel
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.Navigator
+import org.koin.compose.getKoin
+import org.koin.core.parameter.ParametersDefinition
+import org.koin.core.qualifier.Qualifier
+
+// This file provides methods as a runtime error fix for the Voyager + Koin integration.
+// This fix is based on the following Github issue and PR:
+// https://github.com/adrielcafe/voyager/issues/494
+// https://github.com/adrielcafe/voyager/pull/359
+
+@Composable
+public inline fun <reified T : ScreenModel> Screen.getScreenModel(
+    qualifier: Qualifier? = null,
+    noinline parameters: ParametersDefinition? = null
+): T {
+    val koin = getKoin()
+    return rememberScreenModel(tag = qualifier?.value) { koin.get(qualifier, parameters) }
+}
+
+@Composable
+public inline fun <reified T : ScreenModel> Navigator.getNavigatorScreenModel(
+    qualifier: Qualifier? = null,
+    noinline parameters: ParametersDefinition? = null
+): T {
+    val koin = getKoin()
+    return rememberNavigatorScreenModel(tag = qualifier?.value) { koin.get(qualifier, parameters) }
+}

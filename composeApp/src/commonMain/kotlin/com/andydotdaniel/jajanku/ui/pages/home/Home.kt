@@ -25,9 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.ui.components.EmptyNotice
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
@@ -49,7 +49,7 @@ class Home: Screen {
 
     @Composable
     override fun Content() {
-        val viewModel = koinScreenModel<HomeViewModel>()
+        val viewModel = getScreenModel<HomeViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
         val navigator = LocalNavigator.currentOrThrow
