@@ -4,14 +4,13 @@ import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.Locale
 
-actual class NumberFormatter actual constructor(decimalPlaces: Int) {
+actual class NumberFormatter {
     private val decimalFormat = NumberFormat.getCurrencyInstance().apply {
-        maximumFractionDigits = decimalPlaces
         minimumFractionDigits = 0
-
         isGroupingUsed = true
     }
-    actual fun format(value: Double): String {
+    actual fun format(value: Double, decimalPlaces: Int): String {
+        decimalFormat.apply { maximumFractionDigits = decimalPlaces }
         return decimalFormat.format(value)
     }
 

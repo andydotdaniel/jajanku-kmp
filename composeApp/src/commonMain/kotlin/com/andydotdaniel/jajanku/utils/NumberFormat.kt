@@ -5,8 +5,8 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-expect class NumberFormatter(decimalPlaces: Int = 0) {
-    fun format(value: Double): String
+expect class NumberFormatter() {
+    fun format(value: Double, decimalPlaces: Int = 0): String
 
     val decimalSeparator: Char
 }
@@ -14,7 +14,7 @@ expect class NumberFormatter(decimalPlaces: Int = 0) {
 class NumberFormatterVisualTransformation() : VisualTransformation {
 
     private val decimalPlaces = 2
-    private val formatter = NumberFormatter(decimalPlaces)
+    private val formatter = NumberFormatter()
 
     override fun filter(text: AnnotatedString): TransformedText {
         val originalText = text.text
@@ -25,7 +25,7 @@ class NumberFormatterVisualTransformation() : VisualTransformation {
 
         // NOTE: Ensure that the original text is a valid double before formatting.
         // App is set to intentionally crash otherwise to catch these errors early.
-        val formattedText = formatter.format(originalText.toDouble())
+        val formattedText = formatter.format(originalText.toDouble(), decimalPlaces)
 
         val offsetMapping = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {

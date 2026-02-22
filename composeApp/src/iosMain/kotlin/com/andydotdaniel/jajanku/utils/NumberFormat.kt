@@ -2,14 +2,14 @@ package com.andydotdaniel.jajanku.utils
 
 import platform.Foundation.NSNumber
 import platform.Foundation.NSNumberFormatter
-actual class NumberFormatter actual constructor(decimalPlaces: Int) {
+actual class NumberFormatter {
     private val formatter = NSNumberFormatter().apply {
         numberStyle = platform.Foundation.NSNumberFormatterCurrencyStyle
-        maximumFractionDigits = decimalPlaces.toULong()
         minimumFractionDigits = 0u
     }
 
-    actual fun format(value: Double): String {
+    actual fun format(value: Double, decimalPlaces: Int): String {
+        formatter.apply { maximumFractionDigits = decimalPlaces.toULong() }
         return formatter.stringFromNumber(NSNumber(value))!!
     }
 

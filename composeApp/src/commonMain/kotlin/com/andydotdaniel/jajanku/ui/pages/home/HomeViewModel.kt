@@ -101,7 +101,7 @@ class HomeViewModel(
                 id = it.uid,
                 icon = expenseType?.icon ?: "",
                 category = if (expenseType != null) parseSerializableExpenseTypeTitle(expenseType.titles) else "",
-                amount = numberFormatter.format(it.amount),
+                amount = numberFormatter.format(it.amount, 2),
                 time = Time.formatTimestamp(it.timestamp),
                 description = it.notes
             )
