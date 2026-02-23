@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -20,12 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
+import com.andydotdaniel.jajanku.ui.pages.home.Home
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -38,6 +42,18 @@ class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPla
             parameters = { parametersOf(income, budgetPlan) }
         )
         val uiState by viewModel.uiState.collectAsState()
+
+        val navigator = LocalNavigator.currentOrThrow
+
+        LaunchedEffect(key1 = Unit) {
+            viewModel.uiEvents.collect { event ->
+                when (event) {
+                    is ReviewBudgetScreenEvent.NavigateToHome -> {
+                        navigator.replaceAll(Home())
+                    }
+                }
+            }
+        }
 
         Column(Modifier.platformSafeContentPadding()) {
             Row(
@@ -78,7 +94,9 @@ class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPla
             PrimaryButton(
                 modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
                 text = "Save Budget",
-                onClick = {}
+                onClick = {
+                    viewModel.onSaveBudgetTapped()
+                }
             )
         }
     }

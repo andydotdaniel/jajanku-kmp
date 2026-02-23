@@ -6,10 +6,15 @@ import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.ui.components.BudgetView
 import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.utils.NumberFormatter
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 
+sealed class ReviewBudgetScreenEvent {
+    class NavigateToHome() : ReviewBudgetScreenEvent()
+}
 class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel {
 
     private val numberFormatter = NumberFormatter()
@@ -38,6 +43,9 @@ class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel
     ))
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
 
+    private val _uiEvents = Channel<ReviewBudgetScreenEvent>()
+    val uiEvents = _uiEvents.receiveAsFlow()
+
     fun selectBudgetView(index: Int) {
         val budgetView = BudgetView.from(index)
         val budgetViewRatio = when (budgetView) {
@@ -53,6 +61,10 @@ class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel
             wants = wantsGaugeData.copy(value = numberFormatter.format(wants / budgetViewRatio)),
             needs = needsGaugeData.copy(value = numberFormatter.format(needs / budgetViewRatio))
         )
+    }
+
+    fun onSaveBudgetTapped() {
+        _uiEvents.trySend(ReviewBudgetScreenEvent.NavigateToHome())
     }
 
 }
