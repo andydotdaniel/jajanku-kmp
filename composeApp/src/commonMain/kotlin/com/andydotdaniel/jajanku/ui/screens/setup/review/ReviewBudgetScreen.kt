@@ -29,16 +29,16 @@ import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
-import com.andydotdaniel.jajanku.ui.screens.home.Home
+import com.andydotdaniel.jajanku.ui.screens.home.HomeScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.parameter.parametersOf
 
-class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPlan): Screen {
+class ReviewBudgetScreen(private val income: Double, private val budgetPlan: BudgetPlan): Screen {
     @Composable
     override fun Content() {
-        val viewModel = getScreenModel<ReviewBudgetViewModel>(
+        val viewModel = getScreenModel<ReviewBudgetScreenViewModel>(
             parameters = { parametersOf(income, budgetPlan) }
         )
         val uiState by viewModel.uiState.collectAsState()
@@ -49,7 +49,7 @@ class ReviewBudget(private val income: Double, private val budgetPlan: BudgetPla
             viewModel.uiEvents.collect { event ->
                 when (event) {
                     is ReviewBudgetScreenEvent.NavigateToHome -> {
-                        navigator.replaceAll(Home())
+                        navigator.replaceAll(HomeScreen())
                     }
                 }
             }
@@ -110,7 +110,7 @@ fun ReviewBudgetPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            ReviewBudget(12000.0, BudgetPlan("0", 0.50F, 0.30F, 0.20F)).Content()
+            ReviewBudgetScreen(12000.0, BudgetPlan("0", 0.50F, 0.30F, 0.20F)).Content()
         }
     }
 }

@@ -17,7 +17,7 @@ sealed class BudgetPlanSetupEvent {
     class NavigateToReviewBudget(val budgetPlan: BudgetPlan) : BudgetPlanSetupEvent()
 }
 
-class BudgetPlanSetupViewModel(
+class BudgetPlanSetupScreenViewModel(
     private val repository: BudgetPlanRepository
 ): ScreenModel {
 

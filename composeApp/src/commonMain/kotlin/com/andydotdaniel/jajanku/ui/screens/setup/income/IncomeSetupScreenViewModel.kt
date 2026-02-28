@@ -16,7 +16,7 @@ sealed class IncomeSetupEvent {
     class NavigateToBudgetPlanSetup(val income: Double) : IncomeSetupEvent()
 }
 
-class IncomeSetupViewModel(private val incomeRepository: IncomeRepository): ScreenModel {
+class IncomeSetupScreenViewModel(private val incomeRepository: IncomeRepository): ScreenModel {
 
     private val maximumIncomeLength = 11
 

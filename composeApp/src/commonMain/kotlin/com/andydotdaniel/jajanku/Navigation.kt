@@ -21,8 +21,8 @@ import cafe.adriel.voyager.navigator.Navigator
 import com.andydotdaniel.jajanku.data.database.DatabaseSeeder
 import com.andydotdaniel.jajanku.data.repository.BudgetPlanRepository
 import com.andydotdaniel.jajanku.ui.navigation.ModalScreen
-import com.andydotdaniel.jajanku.ui.screens.home.Home
-import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetup
+import com.andydotdaniel.jajanku.ui.screens.home.HomeScreen
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupScreen
 import com.andydotdaniel.jajanku.utils.AppColor
 import kotlinx.coroutines.flow.take
 
@@ -58,12 +58,12 @@ class Launcher(
                     }
                 }
                 null -> {
-                    Navigator(IncomeSetup()) { navigator ->
+                    Navigator(IncomeSetupScreen()) { navigator ->
                         NavigationTransition(navigator)
                     }
                 }
                 else -> {
-                    Navigator(Home()) { navigator ->
+                    Navigator(HomeScreen()) { navigator ->
                         NavigationTransition(navigator)
                     }
                 }

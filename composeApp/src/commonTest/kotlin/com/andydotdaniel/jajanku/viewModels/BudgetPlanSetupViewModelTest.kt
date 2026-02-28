@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.mocks.BudgetPlanRepositoryMock
-import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -19,7 +19,7 @@ class BudgetPlanSetupViewModelTest {
 
     private val mockBudgetPlanRepository = BudgetPlanRepositoryMock()
 
-    private lateinit var viewModel: BudgetPlanSetupViewModel
+    private lateinit var viewModel: BudgetPlanSetupScreenViewModel
 
     private val testDispatcher = StandardTestDispatcher()
 
@@ -33,7 +33,7 @@ class BudgetPlanSetupViewModelTest {
             0.3f,
             0.2f
         )
-        viewModel = BudgetPlanSetupViewModel(mockBudgetPlanRepository)
+        viewModel = BudgetPlanSetupScreenViewModel(mockBudgetPlanRepository)
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.andydotdaniel.jajanku.viewModels
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.andydotdaniel.jajanku.mocks.IncomeRepositoryMock
-import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -21,7 +21,7 @@ class IncomeSetupViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var mockIncomeRepository: IncomeRepositoryMock
 
-    private lateinit var viewModel: IncomeSetupViewModel
+    private lateinit var viewModel: IncomeSetupScreenViewModel
 
     @BeforeTest
     fun setUp() {
@@ -29,7 +29,7 @@ class IncomeSetupViewModelTest {
 
         mockIncomeRepository = IncomeRepositoryMock()
         mockIncomeRepository.savedIncome = 8500000.0
-        viewModel = IncomeSetupViewModel(mockIncomeRepository)
+        viewModel = IncomeSetupScreenViewModel(mockIncomeRepository)
     }
 
     @AfterTest

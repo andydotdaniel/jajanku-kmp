@@ -45,11 +45,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-class Home: Screen {
+class HomeScreen: Screen {
 
     @Composable
     override fun Content() {
-        val viewModel = getScreenModel<HomeViewModel>()
+        val viewModel = getScreenModel<HomeScreenViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
         val navigator = LocalNavigator.currentOrThrow

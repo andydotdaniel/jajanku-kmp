@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 sealed class ReviewBudgetScreenEvent {
     class NavigateToHome() : ReviewBudgetScreenEvent()
 }
-class ReviewBudgetViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel {
+class ReviewBudgetScreenViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel {
 
     private val numberFormatter = NumberFormatter()
 

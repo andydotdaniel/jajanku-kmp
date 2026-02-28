@@ -19,7 +19,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.NavigableListItem
-import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetup
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -44,7 +44,7 @@ class SettingsScreen: Screen {
 
                 item {
                     NavigableListItem("Edit Budget", {
-                        navigator.push(IncomeSetup())
+                        navigator.push(IncomeSetupScreen())
                     })
                     HorizontalDivider(thickness = 1.dp, color = AppColor.BackgroundGray)
                 }

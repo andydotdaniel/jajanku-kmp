@@ -26,7 +26,7 @@ import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
-import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetup
+import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
@@ -36,16 +36,16 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import jajanku.composeapp.generated.resources.chevron_right_24px
 import jajanku.composeapp.generated.resources.icon_chevron_right_24px
 
-class IncomeSetup: Screen {
+class IncomeSetupScreen: Screen {
     @Composable
     override fun Content() {
-        val viewModel = getScreenModel<IncomeSetupViewModel>()
+        val viewModel = getScreenModel<IncomeSetupScreenViewModel>()
         val navigator = LocalNavigator.currentOrThrow
         LaunchedEffect(key1 = Unit) {
             viewModel.uiEvents.collect { event ->
                 when (event) {
                     is IncomeSetupEvent.NavigateToBudgetPlanSetup -> {
-                        navigator.push(BudgetPlanSetup(event.income))
+                        navigator.push(BudgetPlanSetupScreen(event.income))
                     }
                 }
             }
@@ -100,7 +100,7 @@ fun IncomeSetupPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            IncomeSetup().Content()
+            IncomeSetupScreen().Content()
         }
     }
 }

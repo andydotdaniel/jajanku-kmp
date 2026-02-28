@@ -19,10 +19,10 @@ import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
 import com.andydotdaniel.jajanku.ui.screens.expense.ExpenseInputScreenViewModel
-import com.andydotdaniel.jajanku.ui.screens.home.HomeViewModel
-import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupViewModel
-import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupViewModel
-import com.andydotdaniel.jajanku.ui.screens.setup.review.ReviewBudgetViewModel
+import com.andydotdaniel.jajanku.ui.screens.home.HomeScreenViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupScreenViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupScreenViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.review.ReviewBudgetScreenViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -62,14 +62,14 @@ val sharedModules = module {
 
     single<Launcher> { Launcher(get(), get()) }
 
-    factory { IncomeSetupViewModel(get()) }
-    factory { BudgetPlanSetupViewModel(get()) }
+    factory { IncomeSetupScreenViewModel(get()) }
+    factory { BudgetPlanSetupScreenViewModel(get()) }
     factory { params ->
-        ReviewBudgetViewModel(
+        ReviewBudgetScreenViewModel(
             income = params.get(),
             budgetPlan = params.get()
         )
     }
-    factory { HomeViewModel(get(), get(), get()) }
+    factory { HomeScreenViewModel(get(), get(), get()) }
     factory { ExpenseInputScreenViewModel(get(), get()) }
 }

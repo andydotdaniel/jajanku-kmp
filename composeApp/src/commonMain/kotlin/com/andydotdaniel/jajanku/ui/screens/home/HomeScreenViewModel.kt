@@ -26,7 +26,7 @@ private data class RemainingBudgetAmounts(
     val wants: GaugeData
 )
 
-class HomeViewModel(
+class HomeScreenViewModel(
     private val expenseTypeRepository: ExpenseTypeRepository,
     private val budgetRepository: BudgetRepository,
     private val expenseRepository: ExpenseRepository
@@ -45,7 +45,7 @@ class HomeViewModel(
 
     private val numberFormatter = NumberFormatter()
     private val _uiState = MutableStateFlow(UIState())
-    val uiState: StateFlow<HomeViewModel.UIState> = _uiState.asStateFlow()
+    val uiState: StateFlow<HomeScreenViewModel.UIState> = _uiState.asStateFlow()
 
     val uiEvents = Channel<ExpenseInputScreenEvent>()
 

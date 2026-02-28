@@ -26,7 +26,7 @@ import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextCard
-import com.andydotdaniel.jajanku.ui.screens.setup.review.ReviewBudget
+import com.andydotdaniel.jajanku.ui.screens.setup.review.ReviewBudgetScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
@@ -34,19 +34,19 @@ import jajanku.composeapp.generated.resources.chevron_right_24px
 import jajanku.composeapp.generated.resources.icon_chevron_right_24px
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-class BudgetPlanSetup(private val income: Double): Screen {
+class BudgetPlanSetupScreen(private val income: Double): Screen {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = getScreenModel<BudgetPlanSetupViewModel>()
+        val viewModel = getScreenModel<BudgetPlanSetupScreenViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
         LaunchedEffect(key1 = Unit) {
             viewModel.uiEvents.collect { event ->
                 when (event) {
                     is BudgetPlanSetupEvent.NavigateToReviewBudget -> {
-                        navigator.push(ReviewBudget(income, event.budgetPlan))
+                        navigator.push(ReviewBudgetScreen(income, event.budgetPlan))
                     }
                 }
             }
@@ -124,7 +124,7 @@ fun BudgetPlanSetupPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppColor.Black
         ) {
-            BudgetPlanSetup(income = 100000.0).Content()
+            BudgetPlanSetupScreen(income = 100000.0).Content()
         }
     }
 }
