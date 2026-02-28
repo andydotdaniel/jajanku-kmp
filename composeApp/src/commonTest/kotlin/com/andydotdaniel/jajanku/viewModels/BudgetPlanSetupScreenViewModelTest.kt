@@ -27,6 +27,7 @@ class BudgetPlanSetupScreenViewModelTest {
 
     @BeforeTest
     fun setUp() {
+        // Set test dispatcher because we are calling a coroutine on this view model's init block
         Dispatchers.setMain(testDispatcher)
 
         mockBudgetPlanRepository.savedBudgetPlan = BudgetPlan(
