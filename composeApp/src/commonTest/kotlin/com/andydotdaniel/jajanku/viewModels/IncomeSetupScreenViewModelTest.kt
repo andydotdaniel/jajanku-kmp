@@ -34,7 +34,6 @@ class IncomeSetupScreenViewModelTest {
 
     @AfterTest
     fun tearDown() {
-        // 3. After each test, clean up the main dispatcher to avoid affecting other tests
         Dispatchers.resetMain()
     }
 

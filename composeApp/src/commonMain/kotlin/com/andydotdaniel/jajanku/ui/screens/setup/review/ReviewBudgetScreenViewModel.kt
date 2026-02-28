@@ -15,7 +15,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 sealed class ReviewBudgetScreenEvent {
     class NavigateToHome() : ReviewBudgetScreenEvent()
 }
-class ReviewBudgetScreenViewModel(income: Double, budgetPlan: BudgetPlan): ScreenModel {
+class ReviewBudgetScreenViewModel(
+    income: Double,
+    budgetPlan: BudgetPlan,
+    private val _uiEvents: Channel<ReviewBudgetScreenEvent> = Channel<ReviewBudgetScreenEvent>()
+): ScreenModel {
 
     private val numberFormatter = NumberFormatter()
 
@@ -42,8 +46,6 @@ class ReviewBudgetScreenViewModel(income: Double, budgetPlan: BudgetPlan): Scree
         needs = needsGaugeData
     ))
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
-
-    private val _uiEvents = Channel<ReviewBudgetScreenEvent>()
     val uiEvents = _uiEvents.receiveAsFlow()
 
     fun selectBudgetView(index: Int) {
