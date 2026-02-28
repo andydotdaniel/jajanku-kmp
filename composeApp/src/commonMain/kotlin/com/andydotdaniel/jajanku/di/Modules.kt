@@ -23,6 +23,7 @@ import com.andydotdaniel.jajanku.ui.screens.home.HomeScreenViewModel
 import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupScreenViewModel
 import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupScreenViewModel
 import com.andydotdaniel.jajanku.ui.screens.setup.review.ReviewBudgetScreenViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

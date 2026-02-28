@@ -8,6 +8,8 @@ import com.andydotdaniel.jajanku.ui.components.sheets.ExpenseTypeViewItem
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.NumberInputSanitizer
 import com.andydotdaniel.jajanku.utils.parseSerializableExpenseTypeTitle
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +23,9 @@ sealed class ExpenseInputScreenEvent {
 
 class ExpenseInputScreenViewModel(
     expenseTypeRepository: ExpenseTypeRepository,
-    private val expenseRepository: ExpenseRepository
+    private val expenseRepository: ExpenseRepository,
+    private val _uiEvents: Channel<ExpenseInputScreenEvent> = Channel<ExpenseInputScreenEvent>(),
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Main
 ): ScreenModel {
 
     private val maximumIncomeLength = 11
@@ -44,14 +48,13 @@ class ExpenseInputScreenViewModel(
     private val _uiState = MutableStateFlow(UIState())
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
 
-    private val _uiEvents = Channel<ExpenseInputScreenEvent>()
     val uiEvents = _uiEvents.receiveAsFlow()
 
     val numberFormatter = NumberFormatter()
     val numberInputSanitizer = NumberInputSanitizer(numberFormatter.decimalSeparator)
 
     init {
-        screenModelScope.launch {
+        screenModelScope.launch(coroutineDispatcher) {
             val expenseTypes = expenseTypeRepository.getExpenseTypes()
             _uiState.value = _uiState.value.copy(
                 expenseTypes = expenseTypes.map { expenseType ->
@@ -92,7 +95,7 @@ class ExpenseInputScreenViewModel(
     }
 
     fun onSaveButtonPressed() {
-        screenModelScope.launch {
+        screenModelScope.launch(coroutineDispatcher) {
             expenseRepository.addExpense(
                 uiState.value.expenseAmount.toDouble(),
                 uiState.value.selectedExpenseTypeId!!,

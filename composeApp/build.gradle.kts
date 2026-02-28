@@ -69,6 +69,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
         }
         commonTest.dependencies {
+            // To handle coroutines during testing
+            implementation("app.cash.turbine:turbine:1.2.1")
+
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.assertk)
