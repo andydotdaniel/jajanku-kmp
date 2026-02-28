@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.setup.income
+package com.andydotdaniel.jajanku.ui.screens.setup.income
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,7 @@ import com.andydotdaniel.jajanku.di.getScreenModel
 import com.andydotdaniel.jajanku.ui.components.ButtonIcon
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.TextInput
-import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetup
+import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import com.andydotdaniel.jajanku.utils.NumberFormatterVisualTransformation
@@ -35,7 +35,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import jajanku.composeapp.generated.resources.chevron_right_24px
 import jajanku.composeapp.generated.resources.icon_chevron_right_24px
-import org.koin.compose.koinInject
 
 class IncomeSetup: Screen {
     @Composable

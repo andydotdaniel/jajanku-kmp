@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.settings
+package com.andydotdaniel.jajanku.ui.screens.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +19,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.andydotdaniel.jajanku.ui.components.NavigableListItem
-import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetup
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetup
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview

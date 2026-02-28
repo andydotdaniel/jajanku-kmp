@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.home
+package com.andydotdaniel.jajanku.ui.screens.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -10,7 +10,7 @@ import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.ui.components.BudgetView
 import com.andydotdaniel.jajanku.ui.components.ExpenseItem
 import com.andydotdaniel.jajanku.ui.components.GaugeData
-import com.andydotdaniel.jajanku.ui.pages.expense.ExpenseInputScreenEvent
+import com.andydotdaniel.jajanku.ui.screens.expense.ExpenseInputScreenEvent
 import com.andydotdaniel.jajanku.utils.NumberFormatter
 import com.andydotdaniel.jajanku.utils.Time
 import com.andydotdaniel.jajanku.utils.parseSerializableExpenseTypeTitle

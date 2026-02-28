@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.setup.review
+package com.andydotdaniel.jajanku.ui.screens.setup.review
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import com.andydotdaniel.jajanku.domain.Budget

@@ -18,11 +18,11 @@ import com.andydotdaniel.jajanku.data.repository.DatabaseInitializerRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseRepository
 import com.andydotdaniel.jajanku.data.repository.ExpenseTypeRepository
 import com.andydotdaniel.jajanku.data.repository.IncomeRepository
-import com.andydotdaniel.jajanku.ui.pages.expense.ExpenseInputScreenViewModel
-import com.andydotdaniel.jajanku.ui.pages.home.HomeViewModel
-import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupViewModel
-import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
-import com.andydotdaniel.jajanku.ui.pages.setup.review.ReviewBudgetViewModel
+import com.andydotdaniel.jajanku.ui.screens.expense.ExpenseInputScreenViewModel
+import com.andydotdaniel.jajanku.ui.screens.home.HomeViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.review.ReviewBudgetViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

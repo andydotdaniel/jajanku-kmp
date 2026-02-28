@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.setup.review
+package com.andydotdaniel.jajanku.ui.screens.setup.review
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,7 +29,7 @@ import com.andydotdaniel.jajanku.ui.components.GaugeData
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
-import com.andydotdaniel.jajanku.ui.pages.home.Home
+import com.andydotdaniel.jajanku.ui.screens.home.Home
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import org.jetbrains.compose.ui.tooling.preview.Preview

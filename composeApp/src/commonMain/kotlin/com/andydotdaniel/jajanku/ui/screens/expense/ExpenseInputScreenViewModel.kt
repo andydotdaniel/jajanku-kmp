@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.expense
+package com.andydotdaniel.jajanku.ui.screens.expense
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope

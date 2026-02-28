@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.expense
+package com.andydotdaniel.jajanku.ui.screens.expense
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

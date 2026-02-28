@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.mocks.BudgetPlanRepositoryMock
-import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.plan.BudgetPlanSetupViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

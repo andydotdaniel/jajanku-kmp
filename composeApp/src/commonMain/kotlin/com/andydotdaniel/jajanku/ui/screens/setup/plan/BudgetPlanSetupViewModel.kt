@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.setup.plan
+package com.andydotdaniel.jajanku.ui.screens.setup.plan
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope

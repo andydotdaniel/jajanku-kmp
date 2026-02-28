@@ -3,7 +3,7 @@ package com.andydotdaniel.jajanku.viewModels
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.andydotdaniel.jajanku.mocks.IncomeRepositoryMock
-import com.andydotdaniel.jajanku.ui.pages.setup.income.IncomeSetupViewModel
+import com.andydotdaniel.jajanku.ui.screens.setup.income.IncomeSetupViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

@@ -1,4 +1,4 @@
-package com.andydotdaniel.jajanku.ui.pages.home
+package com.andydotdaniel.jajanku.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,8 +34,8 @@ import com.andydotdaniel.jajanku.ui.components.ExpenseListItem
 import com.andydotdaniel.jajanku.ui.components.GroupedGauge
 import com.andydotdaniel.jajanku.ui.components.PrimaryButton
 import com.andydotdaniel.jajanku.ui.components.SegmentedPillControl
-import com.andydotdaniel.jajanku.ui.pages.expense.ExpenseInputScreen
-import com.andydotdaniel.jajanku.ui.pages.settings.SettingsScreen
+import com.andydotdaniel.jajanku.ui.screens.expense.ExpenseInputScreen
+import com.andydotdaniel.jajanku.ui.screens.settings.SettingsScreen
 import com.andydotdaniel.jajanku.ui.platformSafeContentPadding
 import com.andydotdaniel.jajanku.utils.AppColor
 import jajanku.composeapp.generated.resources.Res
