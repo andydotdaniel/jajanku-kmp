@@ -15,7 +15,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BudgetPlanSetupViewModelTest {
+class BudgetPlanSetupScreenViewModelTest {
 
     private val mockBudgetPlanRepository = BudgetPlanRepositoryMock()
 

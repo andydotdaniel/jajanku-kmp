@@ -16,7 +16,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class IncomeSetupViewModelTest {
+class IncomeSetupScreenViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var mockIncomeRepository: IncomeRepositoryMock
