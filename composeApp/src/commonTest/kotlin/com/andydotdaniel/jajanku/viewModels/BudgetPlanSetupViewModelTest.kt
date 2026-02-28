@@ -5,9 +5,12 @@ import assertk.assertions.isEqualTo
 import com.andydotdaniel.jajanku.domain.BudgetPlan
 import com.andydotdaniel.jajanku.mocks.BudgetPlanRepositoryMock
 import com.andydotdaniel.jajanku.ui.pages.setup.plan.BudgetPlanSetupViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -18,13 +21,17 @@ class BudgetPlanSetupViewModelTest {
 
     private lateinit var viewModel: BudgetPlanSetupViewModel
 
+    private val testDispatcher = StandardTestDispatcher()
+
     @BeforeTest
     fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+
         mockBudgetPlanRepository.savedBudgetPlan = BudgetPlan(
             "1",
-            50,
-            30,
-            20
+            0.5f,
+            0.3f,
+            0.2f
         )
         viewModel = BudgetPlanSetupViewModel(mockBudgetPlanRepository)
     }
@@ -44,9 +51,9 @@ class BudgetPlanSetupViewModelTest {
 
         val expectedSavedBudgetPlan = BudgetPlan(
             selectedBudgetPlanId,
-            70,
-            20,
-            10
+            0.70f,
+            0.20f,
+            0.10f
         )
         assertThat(mockBudgetPlanRepository.saveBudgetPlanCalledWithValue).isEqualTo(expectedSavedBudgetPlan)
     }
